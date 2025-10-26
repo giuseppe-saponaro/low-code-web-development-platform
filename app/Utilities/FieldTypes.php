@@ -1,0 +1,71 @@
+<?php
+namespace App\Utilities;
+
+use App\Models\Field;
+use App\Models\FieldTypes\BooleanField;
+use App\Models\FieldTypes\EnumField;
+use App\Models\FieldTypes\FKField;
+use App\Models\FieldTypes\FloatField;
+use App\Models\FieldTypes\IntegerField;
+use App\Models\FieldTypes\StringField;
+
+class FieldTypes
+{
+
+    private static $values = [
+        "STRING" => [
+            "class" => StringField::class,
+            "form-component" => null,
+            "label" => "String"
+        ],
+        "INTEGER" => [
+            "class" => IntegerField::class,
+            "form-component" => null,
+            "label" => "Integer"
+        ],
+        "FLOAT" => [
+            "class" => FloatField::class,
+            "form-component" => null,
+            "label" => "Float"
+        ],
+        "BOOLEAN" => [
+            "class" => BooleanField::class,
+            "form-component" => null,
+            "label" => "Boolean"
+        ],
+        "FK" => [
+            "class" => FKField::class,
+            "form-component" => null,
+            "label" => "Foreign Key"
+        ],
+        "ENUM" => [
+            "class" => EnumField::class,
+            "form-component" => "resources.enum-field",
+            "label" => "Enum"
+        ]
+    ];
+
+    public static function getValues() {
+
+        return self::$values;
+    }
+
+
+    public static function getSectedFieldType($selectedField) {
+
+        $foundedFieldType = null;
+
+        foreach (self::$values as $nodeType => $node) {
+
+            if ($selectedField->with_type_type === $node["class"]) {
+                $foundedFieldType = $nodeType;
+            }
+
+        }
+
+        return $foundedFieldType;
+
+    }
+
+}
+

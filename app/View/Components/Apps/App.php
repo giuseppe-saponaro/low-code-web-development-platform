@@ -1,0 +1,29 @@
+<?php
+
+namespace App\View\Components\Apps;
+
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+use App\Models\App as AppModel;
+
+class App extends Component
+{
+    
+    /**
+     * Create a new component instance.
+     */
+    public function __construct(
+        public AppModel $selectedApp
+    )
+    {
+       
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     */
+    public function render(): View|Closure|string
+    {
+        return view('components.apps.app');
+    }
+}
