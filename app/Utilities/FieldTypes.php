@@ -3,6 +3,7 @@ namespace App\Utilities;
 
 use App\Models\Field;
 use App\Models\FieldTypes\BooleanField;
+use App\Models\FieldTypes\DateField;
 use App\Models\FieldTypes\EnumField;
 use App\Models\FieldTypes\FKField;
 use App\Models\FieldTypes\FloatField;
@@ -42,6 +43,11 @@ class FieldTypes
             "class" => EnumField::class,
             "form-component" => "resources.enum-field",
             "label" => "Enum"
+        ],
+        "DATE" => [
+            "class" => DateField::class,
+            "form-component" => null,
+            "label" => "Date"
         ]
     ];
 

@@ -134,6 +134,14 @@ class NodeController extends Controller
 
     }
 
+    public  function updateHtmlDate(Node $node) {
+
+        $node->html->binding_id = request()->binding;
+        $node->html->save();
+        return redirect("/nodes/$node->id");
+
+    }
+
 
 
     public  function storeChild(Node $node) {

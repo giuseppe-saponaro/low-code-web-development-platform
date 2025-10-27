@@ -11,6 +11,7 @@ use App\Models\HtmlList;
 use App\Models\HtmlRow;
 use App\Models\HtmlSelect;
 use App\Models\Nodes\HtmlCheckbox;
+use App\Models\Nodes\HtmlDate;
 use App\Models\Nodes\HtmlStaticSelect;
 use App\Models\Nodes\SublistButton;
 use App\Models\Sharing;
@@ -123,6 +124,14 @@ class HtmlNodeTypes
             "render-component" => "render.html-checkbox",
             "label" => "Html Checkbox",
             "form-component" => "nodes.html-checkbox"
+        ],
+        "HTML_DATE" => [
+            "class" => HtmlDate::class,
+            "preview-component" => null,
+            "start-component" => null,
+            "render-component" => "render.html-date",
+            "label" => "Html Date",
+            "form-component" => "nodes.html-date"
         ]
 
     ];

@@ -98,6 +98,7 @@ class RowController extends Controller
                     if (method_exists($node0->html, "transformInput")) {
                         $valueWithValue->value = $node0->html->transformInput($fieldValue);
                     } else {
+
                         $valueWithValue->value = $fieldValue;
                     }
                     $valueWithValue->save();
