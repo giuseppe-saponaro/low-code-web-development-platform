@@ -11,6 +11,20 @@
 			<label>Nome campo</label>
 		</div>
 
+        <div class="mb-3 form-check">
+            <input class="form-check-input" type="checkbox" name="required"  @if (true == old('required', $selectedField->required)) checked @endif>
+            <label class="form-check-label">
+                Campo richiesto
+            </label>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input class="form-check-input" type="checkbox" name="unique"  @if (true == old('unique', $selectedField->unique)) checked @endif>
+            <label class="form-check-label">
+                Campo unico
+            </label>
+        </div>
+
 		<div class="mb-3 form-floating">
             <select class="form-select" name="field_type" aria-label="Tipo di campo">
                 <option selected>Seleziona uno ...</option>

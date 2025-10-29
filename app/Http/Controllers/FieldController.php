@@ -19,6 +19,8 @@ class FieldController extends Controller
 
         $field = new Field;
         $field->name = request()->name;
+        $field->required = (request()->required==="on")?true:false;
+        $field->unique = (request()->unique==="on")?true:false;
         $field->resource_id = $resource->id;
         $field->save();
 
@@ -44,6 +46,8 @@ class FieldController extends Controller
     public  function update(Field $field) {
 
         $field->name = request()->name;
+        $field->required = (request()->required==="on")?true:false;
+        $field->unique = (request()->unique==="on")?true:false;
         $field->save();
 
         $field->changeWithType(FieldTypes::getValues()[request()->field_type]["class"]);

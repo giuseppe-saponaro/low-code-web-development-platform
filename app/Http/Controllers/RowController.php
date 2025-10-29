@@ -9,6 +9,10 @@ use App\Models\Node;
 use App\Models\OwnerApp;
 use App\Models\Row;
 use App\Models\Value;
+use App\Models\ValueTypes\FloatValue;
+use App\Models\ValueTypes\IntegerValue;
+use App\Models\ValueTypes\StringValue;
+use App\Rules\MyUnique;
 use App\Utilities\CommonService;
 use App\Utilities\FieldTypes;
 use Illuminate\Http\Request;
@@ -17,16 +21,63 @@ use App\Utilities\Permission;
 use App\Models\RegisteredUserApp;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Sharing;
+use Illuminate\Support\Facades\Validator;
+use Ramsey\Uuid\Type\Integer;
 use function Illuminate\Foundation\Console\redirectPath;
 
 class RowController extends Controller
 {
 
 
+    private function validator() {
+
+        $rules = [];
+
+        foreach (request()->nodes as $nodeId => $fieldValue) {
+
+            $node = Node::find($nodeId);
+            $genericType = $node->html->binding;
+            $type = $node->html->binding->withType;
+
+            if ($genericType->required) {
+                $rules["nodes.$nodeId"][] = "required";
+            } else {
+                $rules["nodes.$nodeId"][] = "nullable";
+            }
+
+            if ($genericType->unique) {
+                $rules["nodes.$nodeId"][] = new MyUnique();
+            }
+
+            if (StringValue::class === $type->getValueClass()) {
+                $rules["nodes.$nodeId"][] = "string";
+                $rules["nodes.$nodeId"][] = "max:250";
+            } elseif (IntegerValue::class === $type->getValueClass()) {
+                $rules["nodes.$nodeId"][] = "integer";
+                $rules["nodes.$nodeId"][] = "digits_between:0,999999999";
+            } elseif (FloatValue::class === $type->getValueClass()) {
+                $rules["nodes.$nodeId"][] = "decimal:2";
+            }
+
+
+
+        }
+
+        $validator = Validator::make(request()->all(), $rules);
+
+        return $validator;
+
+    }
 
     public function store(Node $node, CommonService $commonService) {
 
         if (Auth::user()->canCreate($node)) {
+
+            if ($this->validator()->fails()) {
+                return redirect("/render/$node->id")
+                    ->withErrors($this->validator())
+                    ->withInput();
+            }
 
             $row = new Row;
 
@@ -48,6 +99,8 @@ class RowController extends Controller
 
 
             $row->save();
+
+
 
             foreach (request()->nodes as $nodeId => $fieldValue) {
 
@@ -125,6 +178,12 @@ class RowController extends Controller
     public function update(Row $row) {
 
         if (Auth::user()->canUpdate($row->form->node)) {
+
+            if ($this->validator()->fails()) {
+                return redirect("/rows/$row->id")
+                    ->withErrors($this->validator())
+                    ->withInput();
+            }
 
             foreach (request()->nodes as $nodeId => $fieldValue) {
 
