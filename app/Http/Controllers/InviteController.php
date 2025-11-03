@@ -21,6 +21,7 @@ class InviteController extends Controller
             }
         )->get();
 
+        $selected = null;
         $sharingId = Cookie::get("sharing_id");
         if ($sharingId) {
 

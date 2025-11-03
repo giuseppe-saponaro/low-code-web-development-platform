@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\LoginController;
@@ -31,6 +32,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/sharings/{sharing}', [SharingController::class, 'update']);
         Route::get('/sharings/{sharing}/delete', [SharingController::class, 'delete']);
         Route::put('/sharings2/{sharing}', [SharingController::class, 'update2']);
+
+        Route::get('/users', [UserController::class, 'index']);
+        Route::post('/users', [UserController::class, 'store']);
+        Route::get('/users/{user}', [UserController::class, 'edit']);
+        Route::put('/users/{user}', [UserController::class, 'update']);
+        Route::get('/users/{user}/delete', [UserController::class, 'delete']);
     });
 });
 

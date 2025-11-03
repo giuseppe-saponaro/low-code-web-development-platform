@@ -80,7 +80,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-
+        /*
         $resource1 = new Resource();
         $resource1->name = "Tabella1";
         $resource1->save();
@@ -358,6 +358,8 @@ class DatabaseSeeder extends Seeder
         $bootstrapNavLink60->save();
 
         $bootstrapNavLink60->node()->save($node60);
+
+        */
 
     }
 }

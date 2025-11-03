@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\HtmlList;
 use App\Models\HtmlSelect;
 use App\Models\HtmlSharingSelect;
 use App\Models\Node;
+use App\Models\Nodes\SublistButton;
 use App\Utilities\CommonService;
 use App\Utilities\HtmlNodeTypes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 class NodeController extends Controller
 {
@@ -106,6 +110,7 @@ class NodeController extends Controller
 
     public  function updateHtmlSelect(Node $node) {
 
+        $node->html->subselect = (request()->subselect==="on")?true:false;
         $node->html->multiple = (request()->multiple==="on")?true:false;
         $node->html->binding_id = request()->binding;
         $node->html->form_binding_id = request()->form_binding;
@@ -240,17 +245,13 @@ class NodeController extends Controller
         $rows = null;
 
         $filteringNode = $node->html->defaultFilterBinding;
-        $defalutFilterValue = null;
+        $defaultFilterValue = null;
         if ($filteringNode) {
-            if ($filteringNode->html_type === HtmlSharingSelect::class) {
-                $sharing = $commonService->getSharing();
-                $defalutFilterValue = $sharing->id;
-            } else if ($filteringNode->html_type === HtmlSelect::class) {
-                // TODO
-                // Get authorized row
-                $row = null;
-                $defalutFilterValue = Request::query("parent_row_id");
+
+            if ($filteringNode) {
+                $defaultFilterValue = $commonService->getFilteringValue($filteringNode);
             }
+
         }
 
         $filteringString = Request::query("filter");
@@ -260,7 +261,7 @@ class NodeController extends Controller
             $filters[$node->html->node2->html->binding->withType->getValueClass()] = $filteringString;
         }
 
-        $rows = $node->html->binding->filteredRows($defalutFilterValue, $filters);
+        $rows = $node->html->binding->filteredRows($defaultFilterValue, $filters);
 
         return view("components.render.html-list-body", [
             "selectedNode" => $node,

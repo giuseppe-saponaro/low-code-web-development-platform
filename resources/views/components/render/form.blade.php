@@ -10,7 +10,12 @@ if($row ) {
 	$action = "/nodes/$selectedNode->id/rows";
 	$method = "post";
 }
+
+if (Request::filled("parent_row_id")) {
+    $action .= "?parent_row_id=" . Request::query("parent_row_id");
+}
 @endphp
+
 
 
 <form action="{{ $action }}" method="post" onsubmit="submitRow(this, 'globalModalBody')">

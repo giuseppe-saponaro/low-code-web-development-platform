@@ -7,6 +7,7 @@ use App\Utilities\FieldTypes;
 use App\Utilities\Menu;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
 
@@ -70,12 +71,29 @@ class HtmlSelect extends Component
 
             }
 
-        } else {
+        }
 
-            if (Request::filled("parent_row_id")) {
+        if (Request::filled("parent_row_id")) {
+
+            if (in_array(intval(Request::query("parent_row_id")), $this->options->pluck("row_id")->toArray())) {
                 $this->value = intval(Request::query("parent_row_id"));
+
+                $newOptions = [];
+                foreach ($this->options as $option) {
+                    if ($this->value === $option->row_id){
+                        $newOptions[] = $option;
+                    }
+
+                }
+
+                $this->options = $newOptions;
+
             }
 
+        }
+
+        if (Auth::user()->isInvitedUser() && $this->selectedNode->html->subselect && !Request::filled("parent_row_id")) {
+            abort(403);
         }
 
     }

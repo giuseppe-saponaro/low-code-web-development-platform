@@ -1,3 +1,5 @@
+
+
 <div class="container">
 
     <h5>{{  $selectedNode->name }}</h5>
@@ -12,6 +14,7 @@
     if (Request::filled("parent_row_id")) {
         $qs .= "parent_row_id=" . Request::query("parent_row_id") . "&";
     }
+
     @endphp
 
     <form action="/render/{{  $selectedNode->id }}/ajax" method="get" >
@@ -37,7 +40,7 @@
 
             </div>
             <div class="w-50 d-flex justify-content-end">
-                <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#globalModal" data-method="put" data-row-id="{{ $row->id }}">
+                <button type="button" class="btn btn-primary me-1" data-bs-toggle="modal" data-bs-target="#globalModal" data-method="put" data-row-id="{{ $row->id }}?{{ $qs }}">
                     <i class="bi bi-pencil-square"></i>
                 </button>
                 @foreach($selectedNode->children as $sublist)

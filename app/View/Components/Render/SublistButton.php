@@ -4,6 +4,7 @@ namespace App\View\Components\Render;
 
 use App\Models\HtmlSharingSelect;
 use App\Models\Node as NodeModel;
+use App\Utilities\CommonService;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cookie;
@@ -12,6 +13,7 @@ use Illuminate\View\Component;
 
 class SublistButton extends Component
 {
+    public $rows;
 
     /**
      * Create a new component instance.
@@ -20,6 +22,29 @@ class SublistButton extends Component
         public NodeModel $selectedNode
     )
     {
+
+        $commonService = app()->make(CommonService::class);
+        $node = $this->selectedNode->html->listBinding->node;
+
+        $rows = null;
+
+        $filteringNode = $node->html->defaultFilterBinding;
+        $defaultFilterValue = null;
+        if ($filteringNode) {
+            $defaultFilterValue = $commonService->getFilteringValue($filteringNode);
+        }
+
+        $filteringString = Request::query("filter");
+        $filters = [];
+        if ($filteringString) {
+            $filters[$node->html->node1->html->binding->withType->getValueClass()] = $filteringString;
+            $filters[$node->html->node2->html->binding->withType->getValueClass()] = $filteringString;
+        }
+
+        $rows = $node->html->binding->filteredRows($defaultFilterValue, $filters);
+
+
+        $this->rows = $rows;
 
 
     }

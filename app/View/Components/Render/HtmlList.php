@@ -36,14 +36,9 @@ class HtmlList extends Component
         $rows = null;
 
         $filteringNode = $node->html->defaultFilterBinding;
-        $defalutFilterValue = null;
+        $defaultFilterValue = null;
         if ($filteringNode) {
-            if ($filteringNode->html_type === HtmlSharingSelect::class) {
-                $sharing = $commonService->getSharing();
-                $defalutFilterValue = $sharing->id;
-            } else if ($filteringNode->html_type === HtmlSelect::class) {
-                $defalutFilterValue = Request::query("parent_row_id");
-            }
+            $defaultFilterValue = $commonService->getFilteringValue($filteringNode);
         }
 
         $filteringString = Request::query("filter");
@@ -53,7 +48,7 @@ class HtmlList extends Component
             $filters[$node->html->node2->html->binding->withType->getValueClass()] = $filteringString;
         }
 
-        $rows = $node->html->binding->filteredRows($defalutFilterValue, $filters);
+        $rows = $node->html->binding->filteredRows($defaultFilterValue, $filters);
 
 
         $this->rows = $rows;

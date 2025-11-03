@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\App;
 use App\Models\Field;
+use App\Models\HtmlSelect;
 use App\Models\Invite;
 use App\Models\Node;
 use App\Models\OwnerApp;
@@ -12,6 +13,7 @@ use App\Models\Value;
 use App\Models\ValueTypes\FloatValue;
 use App\Models\ValueTypes\IntegerValue;
 use App\Models\ValueTypes\StringValue;
+use App\Rules\MyExists;
 use App\Rules\MyUnique;
 use App\Utilities\CommonService;
 use App\Utilities\FieldTypes;
@@ -59,6 +61,11 @@ class RowController extends Controller
                 $rules["nodes.$nodeId"][] = "decimal:2";
             }
 
+            if (HtmlSelect::class === $node->html_type && $node->html->subselect) {
+                //$rules["nodes.$nodeId"][] = "required";
+                $rules["nodes.$nodeId"][] = new MyExists();
+            }
+
 
 
         }
@@ -74,9 +81,15 @@ class RowController extends Controller
         if (Auth::user()->canCreate($node)) {
 
             if ($this->validator()->fails()) {
-                return redirect("/render/$node->id")
+
+                // TODO security check
+                $qs = \request()->getQueryString();
+                $append = $qs?"?$qs":"";
+
+                return redirect("/render/$node->id$append")
                     ->withErrors($this->validator())
                     ->withInput();
+
             }
 
             $row = new Row;
@@ -136,7 +149,12 @@ class RowController extends Controller
                 }
             }
 
-            return redirect("/rows/$row->id");
+
+            // TODO security check
+            $qs = \request()->getQueryString();
+            $append = $qs?"?$qs":"";
+
+            return redirect("/rows/$row->id$append");
 
         }
 
@@ -165,7 +183,12 @@ class RowController extends Controller
         if (Auth::user()->canUpdate($row->form->node)) {
 
             if ($this->validator()->fails()) {
-                return redirect("/rows/$row->id")
+
+                // TODO security check
+                $qs = \request()->getQueryString();
+                $append = $qs?"?$qs":"";
+
+                return redirect("/rows/$row->id$append")
                     ->withErrors($this->validator())
                     ->withInput();
             }
@@ -232,7 +255,11 @@ class RowController extends Controller
 
             }
 
-            return redirect("/rows/$row->id");
+            // TODO security check
+            $qs = \request()->getQueryString();
+            $append = $qs?"?$qs":"";
+
+            return redirect("/rows/$row->id$append");
 
         }
 

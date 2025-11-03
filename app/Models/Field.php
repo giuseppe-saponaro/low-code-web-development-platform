@@ -44,6 +44,10 @@ class Field extends Model
         return $this->hasMany(Value::class, "field_id")->where("row_id", $row->id);
     }
 
+    public function values0($rowId) : HasMany {
+        return $this->hasMany(Value::class, "field_id")->where("row_id", $rowId);
+    }
+
     public function allValues() : HasMany {
         return $this->hasMany(Value::class, "field_id");
     }
