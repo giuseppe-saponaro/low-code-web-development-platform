@@ -126,6 +126,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('authenticate', [LoginController::class, 'authenticate']);
+Route::get('logout', [LoginController::class, 'logout']);
 
 
 

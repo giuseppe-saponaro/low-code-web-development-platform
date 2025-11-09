@@ -7,6 +7,7 @@ use App\Mail\OwnerInvite;
 use App\Models\Nodes\BootstrapNavbar;
 use App\Models\Owner;
 use App\Models\User;
+use Brick\Math\Exception\MathException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -38,7 +39,7 @@ class AppController extends Controller
 
         $user = User::query()->whereHasMorph("loggable", [Owner::class])->first();
 
-        $passsword = "234";
+        $passsword = "temporanea" . 1000000 - random_int(1, 100000);
         if (!$user) {
             $user = new User();
             $user->name = request()->email;

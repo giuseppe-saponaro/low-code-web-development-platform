@@ -57,7 +57,7 @@
                 @endif
                 @endauth
                 <li class="nav-item">
-                  <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
               </ul>
               <form class="d-flex" role="search">
