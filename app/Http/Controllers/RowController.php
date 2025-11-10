@@ -130,11 +130,13 @@ class RowController extends Controller
                     $value->save();
 
                     $valueWithValue = new ($node0->html->binding->withType->getValueClass());
-                    if (method_exists($node0->html, "transformInput")) {
-                        $valueWithValue->value = $node0->html->transformInput($fieldValue);
-                    } else {
+                    if (Auth::user()->canCreate($node0)) {
+                        if (method_exists($node0->html, "transformInput")) {
+                            $valueWithValue->value = $node0->html->transformInput($fieldValue);
+                        } else {
 
-                        $valueWithValue->value = $fieldValue;
+                            $valueWithValue->value = $fieldValue;
+                        }
                     }
                     $valueWithValue->save();
 
@@ -254,11 +256,13 @@ class RowController extends Controller
                         $value->save();
 
                         $valueWithValue = new ($node0->html->binding->withType->getValueClass());
-                        if (method_exists($node0->html, "transformInput")) {
-                            $valueWithValue->value = $node0->html->transformInput($fieldValue);
-                        } else {
+                        if (Auth::user()->canCreate($node0)) {
+                            if (method_exists($node0->html, "transformInput")) {
+                                $valueWithValue->value = $node0->html->transformInput($fieldValue);
+                            } else {
 
-                            $valueWithValue->value = $fieldValue;
+                                $valueWithValue->value = $fieldValue;
+                            }
                         }
                         $valueWithValue->save();
 
