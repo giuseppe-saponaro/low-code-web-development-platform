@@ -16,6 +16,7 @@ use App\Models\Nodes\HtmlRow;
 use App\Models\Nodes\HtmlSelect;
 use App\Models\Nodes\HtmlSharingSelect;
 use App\Models\Nodes\HtmlStaticSelect;
+use App\Models\Nodes\HtmlTextarea;
 use App\Models\Nodes\HtmlTime;
 use App\Models\Nodes\SublistButton;
 
@@ -158,6 +159,14 @@ class HtmlNodeTypes
             "render-component" => "render.html-list-body",
             "label" => "Html List Body",
             "form-component" => null
+        ],
+        "HTML_TEXTAREA" => [
+            "class" => HtmlTextarea::class,
+            "preview-component" => null,
+            "start-component" => null,
+            "render-component" => "render.html-textarea",
+            "label" => "Html Textarea",
+            "form-component" => "nodes.html-textarea"
         ]
 
     ];

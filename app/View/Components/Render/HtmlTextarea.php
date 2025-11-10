@@ -2,25 +2,22 @@
 
 namespace App\View\Components\Render;
 
+use App\Models\Node as NodeModel;
 use app\Utilities\Menu;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class HtmlCheckbox extends Component
+class HtmlTextarea extends Component
 {
-
     public $value;
-
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public NodeModel $selectedNode
     )
     {
-
-
         $row = Menu::getRow();
 
         if ($row) {
@@ -33,7 +30,6 @@ class HtmlCheckbox extends Component
                 }
             }
         }
-
     }
 
     /**
@@ -41,6 +37,6 @@ class HtmlCheckbox extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.render.html-checkbox');
+        return view('components.render.html-textarea');
     }
 }

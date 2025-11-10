@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/nodes10/{node}', [NodeController::class, 'updateHtmlDate']);
         Route::put('/nodes11/{node}', [NodeController::class, 'updateHtmlTime']);
         Route::put('/nodes12/{node}', [NodeController::class, 'updateHtmlDateTime']);
+        Route::put('/nodes13/{node}', [NodeController::class, 'updateTextarea']);
 
         Route::get('/roles', [RoleController::class, 'index']);
         Route::post('/roles', [RoleController::class, 'store']);

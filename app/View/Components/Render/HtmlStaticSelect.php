@@ -51,10 +51,12 @@ class HtmlStaticSelect extends Component
         if (!$this->selectedNode->html->multiple) {
             if ($formRow) {
                 $genericValue = $this->selectedNode->html->binding->values($formRow)->first();
-                $withValue = $genericValue->withValue;
+                if ($genericValue) {
+                    $withValue = $genericValue->withValue;
 
-                if ($withValue) {
-                    $this->value =  $withValue->value;
+                    if ($withValue) {
+                        $this->value = $withValue->value;
+                    }
                 }
             }
         } else {

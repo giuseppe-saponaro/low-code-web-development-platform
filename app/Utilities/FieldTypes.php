@@ -9,6 +9,7 @@ use App\Models\FieldTypes\FKField;
 use App\Models\FieldTypes\FloatField;
 use App\Models\FieldTypes\IntegerField;
 use App\Models\FieldTypes\StringField;
+use App\Models\FieldTypes\TextField;
 use App\Models\FieldTypes\TimeField;
 
 class FieldTypes
@@ -59,6 +60,11 @@ class FieldTypes
             "class" => DateTimeField::class,
             "form-component" => null,
             "label" => "Date Time"
+        ],
+        "TEXT" => [
+            "class" => TextField::class,
+            "form-component" => null,
+            "label" => "Text"
         ]
     ];
 

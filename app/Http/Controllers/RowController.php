@@ -235,14 +235,35 @@ class RowController extends Controller
                 } else {
 
                     $value = $node0->html->binding->values($row)->first();
-                    if (Auth::user()->canUpdate($node0)) {
-                        if (method_exists($node0->html, "transformInput")) {
-                            $value->withValue->value = $node0->html->transformInput($fieldValue);
-                        } else {
-                            $value->withValue->value = $fieldValue;
+
+                    if ($value) {
+
+                        if (Auth::user()->canUpdate($node0)) {
+                            if (method_exists($node0->html, "transformInput")) {
+                                $value->withValue->value = $node0->html->transformInput($fieldValue);
+                            } else {
+                                $value->withValue->value = $fieldValue;
+                            }
                         }
+                        $value->withValue->save();
+                    } else {
+
+                        $value = new Value();
+                        $value->row_id = $row->id;
+                        $value->field_id = $node0->html->binding->id;
+                        $value->save();
+
+                        $valueWithValue = new ($node0->html->binding->withType->getValueClass());
+                        if (method_exists($node0->html, "transformInput")) {
+                            $valueWithValue->value = $node0->html->transformInput($fieldValue);
+                        } else {
+
+                            $valueWithValue->value = $fieldValue;
+                        }
+                        $valueWithValue->save();
+
+                        $valueWithValue->value()->save($value);
                     }
-                    $value->withValue->save();
 
                 }
 

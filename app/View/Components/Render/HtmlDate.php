@@ -23,10 +23,12 @@ class HtmlDate extends Component
 
         if ($row) {
             $genericValue = $this->selectedNode->html->binding->values($row)->first();
-            $value = $genericValue->withValue;
+            if ($genericValue) {
+                $value = $genericValue->withValue;
 
-            if ($value) {
-                $this->value =  $value->value;
+                if ($value) {
+                    $this->value = $value->value;
+                }
             }
         }
     }
