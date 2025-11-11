@@ -74,44 +74,11 @@ class FieldController extends Controller
 
     }
 
-
-    private function deleteRelatedRow($relatedRow) {
-
-        foreach ($relatedRow->values as $value) {
-
-            if ($value->fkValues) {
-                foreach ($value->fkValues as $fkValue) {
-
-                    $this->deleteRelatedRow($fkValue->relatedRow);
-
-                }
-            }
-
-            $value->withValue->delete();
-
-            $value->delete();
-
-        }
-
-        $relatedRow->delete();
-
-    }
-
     public function delete(Field $field) {
 
         DB::transaction(function () use ($field) {
 
             foreach ($field->allValues as $value) {
-
-                if ($value->fkValues) {
-                    foreach ($value->fkValues as $fkValue) {
-
-                        $this->deleteRelatedRow($fkValue->relatedRow);
-
-                    }
-                }
-
-                $value->relatedRow->delete();
 
                 $value->withValue->delete();
 
@@ -126,6 +93,7 @@ class FieldController extends Controller
 
                     $bindedNodes = $field->bindedNodes($valueClass["class"])->get();
                     foreach ($bindedNodes as $bindedNode) {
+
 
 
                         $bindedNode->node->delete();

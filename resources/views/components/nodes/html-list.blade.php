@@ -9,7 +9,7 @@
             <option value="{{ $node->html->id }}" @if ($node->html->id == old('binding', $selectedNode->html->binding_id)) selected @endif>{{ $node->name }}</option>
             @endforeach
             </select>
-		<label>Campo</label>
+		<label>Form correlato</label>
     </div>
 
 	<div class="mb-3 form-floating">
@@ -19,7 +19,7 @@
             <option value="{{ $node->id }}" @if ($node->id == old('default_filter_binding', $selectedNode->html->default_filter_binding_id)) selected @endif>{{ $node->name }}</option>
             @endforeach
             </select>
-		<label>Tipo di nodo</label>
+		<label>Filtro / Join</label>
     </div>
 
     @if($selectedNode->html->binding_id)
@@ -31,7 +31,7 @@
             <option value="{{ $node->id }}" @if ($node->id == old('node1', $selectedNode->html->node_id1)) selected @endif>{{ $node->name }}</option>
             @endforeach
             </select>
-		<label>Tipo di nodo</label>
+		<label>Nodo Titolo Riga</label>
     </div>
 
 
@@ -42,7 +42,7 @@
             <option value="{{ $node->id }}" @if ($node->id == old('node2', $selectedNode->html->node_id2)) selected @endif>{{ $node->name }}</option>
             @endforeach
             </select>
-		<label>Tipo di nodo</label>
+		<label>Nodo Descrizione Riga</label>
     </div>
     @endif
 

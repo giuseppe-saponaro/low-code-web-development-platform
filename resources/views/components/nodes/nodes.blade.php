@@ -81,7 +81,14 @@
         	@endif
 
         	@isset($selectedNode)
-            <a class="btn btn-primary btn-danger btn-sm mt-3" href="/nodes/{{ $selectedNode->id }}/delete" role="button">Elimina nodo</a>
+            <script>
+                function confirmDelete() {
+                    if(confirm("Confermi di voler cancellare il nodo selezionato (l'operazione cancellerà i nodi figli) ?")) {
+                        window.location.href = "/nodes/{{ $selectedNode->id }}/delete";
+                    }
+                }
+            </script>
+            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina nodo</a>
 			@endisset
 
 		</div>

@@ -60,29 +60,6 @@ class ResourceController extends Controller
 
     }
 
-    private function deleteRelatedRow($relatedRow) {
-
-        foreach ($relatedRow->values as $value) {
-
-
-            if ($value->fkValues) {
-                foreach ($value->fkValues as $fkValue) {
-
-                    $this->deleteRelatedRow($fkValue->relatedRow);
-
-                }
-            }
-
-            $value->withValue->delete();
-
-            $value->delete();
-
-        }
-
-        $relatedRow->delete();
-
-    }
-
     public function delete(Resource $resource) {
 
         DB::transaction(function () use ($resource) {
@@ -90,16 +67,6 @@ class ResourceController extends Controller
             foreach ($resource->fields as $field) {
 
                 foreach ($field->allValues as $value) {
-
-                    if ($value->fkValues) {
-                        foreach ($value->fkValues as $fkValue) {
-
-                            $this->deleteRelatedRow($fkValue->relatedRow);
-
-                        }
-                    }
-
-                    $value->relatedRow->delete();
 
                     $value->withValue->delete();
 

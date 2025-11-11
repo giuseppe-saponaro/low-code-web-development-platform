@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('shared_nodes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('node_id');
-            $table->foreign('node_id')->references('id')->on('nodes');
+            $table->foreign('node_id')->references('id')->on('nodes')->cascadeOnDelete();
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
             $table->boolean('can_create');

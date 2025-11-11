@@ -93,7 +93,14 @@
             @endif
 
             @isset($selectedUser)
-                <a class="btn btn-primary btn-danger btn-sm mt-3" href="/users/{{ $selectedUser->id }}/delete" role="button">Elimina utente</a>
+            <script>
+                function confirmDelete() {
+                    if(confirm("Confermi di voler cancellare l'utente selezionato ?")) {
+                        window.location.href = "/users/{{ $selectedUser->id }}/delete";
+                    }
+                }
+            </script>
+            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina utente</a>
             @endisset
 
         </div>

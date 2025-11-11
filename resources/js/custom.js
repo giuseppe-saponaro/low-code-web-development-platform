@@ -38,13 +38,15 @@ window.submitRow = function (form, targetId) {
 }
 
 window.deleteRow = function (rowId) {
-  const xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
-	window.refresh();
-  }
-  xhttp.open("GET", "/rows/" + rowId + "/delete");
-  xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-  xhttp.send();
+    if(confirm("Confermi di voler cancellare il record selezionato ?")) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            window.refresh();
+        }
+        xhttp.open("GET", "/rows/" + rowId + "/delete");
+        xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+        xhttp.send();
+    }
 }
 
 

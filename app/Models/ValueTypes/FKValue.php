@@ -13,8 +13,4 @@ class FKValue extends Model
 
     protected $table = "f_k_values";
 
-    public function relatedRow() : BelongsTo {
-        return $this->belongsTo(Row::class, "value");
-    }
-
 }

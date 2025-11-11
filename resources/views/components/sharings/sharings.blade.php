@@ -36,7 +36,14 @@
             @endempty
 
             @isset($selectedSharing)
-            <a class="btn btn-primary btn-danger btn-sm mt-3" href="/sharings/{{ $selectedSharing->id }}/delete" role="button">Elimina condivisione</a>
+            <script>
+                function confirmDelete() {
+                    if(confirm("Confermi di voler cancellare la condivisione selezionata ?")) {
+                        window.location.href = "/sharings/{{ $selectedSharing->id }}/delete";
+                    }
+                }
+            </script>
+            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina condivisione</a>
 			@endisset
 
 		</div>

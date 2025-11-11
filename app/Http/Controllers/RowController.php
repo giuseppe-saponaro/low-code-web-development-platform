@@ -9,6 +9,7 @@ use App\Models\OwnerApp;
 use App\Models\RegisteredUserApp;
 use App\Models\Row;
 use App\Models\Value;
+use App\Models\ValueTypes\FKValue;
 use App\Models\ValueTypes\FloatValue;
 use App\Models\ValueTypes\IntegerValue;
 use App\Models\ValueTypes\StringValue;
@@ -286,7 +287,15 @@ class RowController extends Controller
     public function delete(Row $row) {
 
         if (Auth::user()->canDelete($row->form->node)) {
-            $row->delete();
+
+            $fksCount = FKValue::where("value", $row->id)->count();
+            if ($fksCount === 0) {
+                $row->delete();
+            } else {
+                abort(403, "Non puoi effettuare la cancellazione");
+            }
+
+
         }
 
         //return redirect("/nodes/$node->id");

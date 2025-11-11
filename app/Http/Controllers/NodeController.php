@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use App\Models\Node;
 use App\Utilities\CommonService;
 use App\Utilities\HtmlNodeTypes;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Schema;
 
 class NodeController extends Controller
 {
@@ -214,7 +216,13 @@ class NodeController extends Controller
 
     public function delete(Node $node) {
 
-        $this->rec($node);
+        DB::transaction(function () use ($node) {
+
+            $this->rec($node);
+
+        });
+
+
 
         return redirect("/nodes");
 

@@ -21,12 +21,26 @@
 
         	@isset($selectedResource)
             <x-resources.resources-list-action-create-field :selectedResource="$selectedResource" />
-            <a class="btn btn-primary btn-danger btn-sm mt-3" href="/resources/{{ $selectedResource->id }}/delete" role="button">Elimina risorsa</a>
+            <script>
+                function confirmDelete() {
+                    if(confirm("Confermi di voler cancellare la risorsa selezionata (l'operazione cancellerà campi, nodi e valori correlati) ?")) {
+                        window.location.href = "/resources/{{ $selectedResource->id }}/delete";
+                    }
+                }
+            </script>
+            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina risorsa</a>
             @endisset
 
 
             @isset($selectedField)
-            <a class="btn btn-primary btn-danger btn-sm mt-3" href="/fields/{{ $selectedField->id }}/delete" role="button">Elimina campo</a>
+            <script>
+                function confirmDelete() {
+                    if(confirm("Confermi di voler cancellare il campo selezionato (l'operazione cancellerà nodi e valori correlati) ?")) {
+                        window.location.href = "/fields/{{ $selectedField->id }}/delete";
+                    }
+                }
+            </script>
+            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina campo</a>
 			@endisset
 
 		</div>
