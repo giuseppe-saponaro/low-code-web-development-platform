@@ -68,13 +68,17 @@ class NodeController extends Controller
             "label" => "nullable|string|max:250"
         ]);
 
-        $node->name = request()->name;
-        $node->label = request()->label;
-        $node->save();
+        DB::transaction(function() use ($node) {
 
-        if (request()->has("html_type") && request()->html_type) {
-            $node->changeHtmlType(HtmlNodeTypes::getValues()[request()->html_type]["class"]);
-        }
+            $node->name = request()->name;
+            $node->label = request()->label;
+            $node->save();
+
+            if (request()->has("html_type") && request()->html_type) {
+                $node->changeHtmlType(HtmlNodeTypes::getValues()[request()->html_type]["class"]);
+            }
+
+        });
 
         return redirect("/nodes/$node->id");
 
