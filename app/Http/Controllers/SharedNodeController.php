@@ -13,7 +13,7 @@ class SharedNodeController extends Controller
 {
 
     public function store(Role $role, Node $node) {
-        
+
         $sharedNode = new SharedNode;
         $sharedNode->role_id = $role->id;
         $sharedNode->node_id = $node->id;
@@ -22,23 +22,32 @@ class SharedNodeController extends Controller
         $sharedNode->can_update = true;
         $sharedNode->can_delete = true;
         $sharedNode->save();
-        
+
         return redirect("/roles/$role->id");
-        
+
     }
 
     public function update(SharedNode $sharedNode) {
-  
+
         $sharedNode->can_create = request()->can_create === "on"?1:0;
         $sharedNode->can_read = request()->can_read === "on"?1:0;
         $sharedNode->can_update = request()->can_update === "on"?1:0;
         $sharedNode->can_delete = request()->can_delete === "on"?1:0;
         $sharedNode->save();
-        
+
         $role = $sharedNode->role;
-        
+
         return redirect("/roles/$role->id");
-        
+
     }
-    
+
+    public function delete(SharedNode $sharedNode) {
+
+        $sharedNode->delete();
+
+        $role = $sharedNode->role;
+
+        return redirect("/roles/$role->id");
+    }
+
 }

@@ -4,7 +4,6 @@ namespace App\View\Components\Nodes;
 
 use App\Models\Field as FieldModel;
 use App\Models\FieldTypes\DateTimeField;
-use App\Models\FieldTypes\TimeField;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -17,7 +16,7 @@ class HtmlDateTime extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public \App\Models\Node $selectedNode
     )
 
     {

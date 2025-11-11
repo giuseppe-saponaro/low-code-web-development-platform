@@ -17,7 +17,7 @@ class SublistButton extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public Node $selectedNode
     )
     {
 

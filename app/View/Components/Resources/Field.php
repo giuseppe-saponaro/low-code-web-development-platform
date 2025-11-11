@@ -3,7 +3,6 @@
 namespace App\View\Components\Resources;
 
 use App\Utilities\FieldTypes;
-use app\Utilities\HtmlNodeTypes;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

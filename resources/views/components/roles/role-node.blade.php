@@ -9,7 +9,7 @@ $sharedNode = $selectedRole->sharedNode($node);
 @if(!$sharedNode)
 <form action="/roles/{{ $selectedRole->id }}/nodes/{{ $node->id }}/shared-nodes" method="post">
 	@csrf
-	<button type="submit" class="btn btn-success btn-sm">Crea permessi</button>    
+	<button type="submit" class="btn btn-success btn-sm">Crea permessi</button>
 </form>
 
 @else
@@ -30,33 +30,34 @@ $sharedNode = $selectedRole->sharedNode($node);
         	Can Read
         </label>
     </div>
-    
+
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="can_update" name="can_update" @if($sharedNode->can_update) checked @endif>
         <label class="form-check-label" for="can_update">
         	Can Update
         </label>
     </div>
-    
+
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="can_delete" name="can_delete" @if($sharedNode->can_delete) checked @endif>
         <label class="form-check-label" for="can_delete">
         	Can Delete
         </label>
     </div>
-    
-    <button type="submit" class="btn btn-success btn-sm">Salva</button>    
+
+    <button type="submit" class="btn btn-success btn-sm">Salva</button>
+    <a class="btn btn-danger btn-sm" href="/shared-nodes/{{ $sharedNode->id }}/delete">Elimina</a>
 </form>
 @endif
 
 <ul>
 
 	@foreach($node->children as $child)
-	
-	<x-roles.role-node :selectedRole="$selectedRole" :node="$child"/>
-	
-	@endforeach
-	
 
-	
+	<x-roles.role-node :selectedRole="$selectedRole" :node="$child"/>
+
+	@endforeach
+
+
+
 </ul>

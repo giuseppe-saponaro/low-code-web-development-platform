@@ -89,6 +89,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/roles/{role}/delete', [RoleController::class, 'delete']);
         Route::post('/roles/{role}/nodes/{node}/shared-nodes', [SharedNodeController::class, 'store']);
         Route::put('/shared-nodes/{sharedNode}', [SharedNodeController::class, 'update']);
+        Route::get('/shared-nodes/{sharedNode}/delete', [SharedNodeController::class, 'delete']);
 
 
         Route::post('/apps/owner-invite', [AppController::class, 'sendOwnerInvite']);
@@ -127,7 +128,9 @@ Route::middleware('auth')->group(function () {
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('authenticate', [LoginController::class, 'authenticate']);
-Route::get('logout', [LoginController::class, 'logout']);
+Route::middleware('auth')->group(function () {
+    Route::get('logout', [LoginController::class, 'logout']);
+});
 
 
 

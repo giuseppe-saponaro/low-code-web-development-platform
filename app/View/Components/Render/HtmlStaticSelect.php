@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Render;
 
+use App\Models\Node;
 use app\Utilities\Menu;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -16,7 +17,7 @@ class HtmlStaticSelect extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public Node $selectedNode
     )
     {
 

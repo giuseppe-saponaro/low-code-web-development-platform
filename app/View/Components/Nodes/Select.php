@@ -7,6 +7,8 @@ use App\Models\FieldTypes\FKField;
 use App\Models\FieldTypes\MvIntegerField;
 use App\Models\Node as NodeModel;
 use App\Models\Nodes\HtmlForm;
+use App\Models\Nodes\HtmlSelect;
+use App\Models\Nodes\HtmlSharingSelect;
 use App\Models\SvIntegerField;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -23,7 +25,7 @@ class Select extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public \App\Models\Node $selectedNode
     )
     {
 
@@ -35,7 +37,15 @@ class Select extends Component
 
         $this->forms = HtmlForm::all();
 
-        $this->formFields = NodeModel::all();
+        if ($this->selectedNode->html->formBinding) {
+
+            $this->formFields = NodeModel::where("parent_id", $this->selectedNode->html->formBinding->node->id)->get();
+        } else {
+
+            $this->formFields = NodeModel::all();
+        }
+
+
 
 
     }

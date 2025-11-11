@@ -12,17 +12,18 @@
 		<label>Form correlato</label>
     </div>
 
+    @if($selectedNode->html->binding_id)
 	<div class="mb-3 form-floating">
         <select class="form-select" name="default_filter_binding" aria-label="Tipo di nodo">
             <option value="" selected>Seleziona uno ...</option>
-            @foreach($nodes as $node)
+            @foreach($filters as $node)
             <option value="{{ $node->id }}" @if ($node->id == old('default_filter_binding', $selectedNode->html->default_filter_binding_id)) selected @endif>{{ $node->name }}</option>
             @endforeach
             </select>
 		<label>Filtro / Join</label>
     </div>
 
-    @if($selectedNode->html->binding_id)
+
 	<div class="mb-3 form-floating">
 
         <select class="form-select" name="node1" aria-label="Tipo di nodo">

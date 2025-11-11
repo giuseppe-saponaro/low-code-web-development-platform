@@ -6,14 +6,11 @@ use App\Utilities\FieldTypes;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\App as AppModel;
 use App\Models\Resource as ResourceModel;
 
 class ResourcesListActionCreateField extends Component
 {
-    
-    public $Utility;
-    
+
     /**
      * Create a new component instance.
      */
@@ -21,7 +18,6 @@ class ResourcesListActionCreateField extends Component
         public ResourceModel $selectedResource
     )
     {
-        $this->Utility = FieldTypes::class;
     }
 
     /**

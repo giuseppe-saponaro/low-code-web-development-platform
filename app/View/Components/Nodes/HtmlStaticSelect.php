@@ -4,7 +4,6 @@ namespace App\View\Components\Nodes;
 
 use App\Models\Field;
 use App\Models\FieldTypes\EnumField;
-use App\Models\FieldTypes\FKField;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -20,7 +19,7 @@ class HtmlStaticSelect extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public \App\Models\Node $selectedNode
     )
     {
 

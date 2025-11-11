@@ -6,9 +6,6 @@ use App\Models\Field as FieldModel;
 use App\Models\FieldTypes\FloatField;
 use App\Models\FieldTypes\IntegerField;
 use App\Models\FieldTypes\StringField;
-use App\Models\FieldTypes\SvStringField;
-use App\Models\SvFloatField;
-use App\Models\SvIntegerField;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -23,7 +20,7 @@ class InputText extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public \App\Models\Node $selectedNode
         )
     {
 

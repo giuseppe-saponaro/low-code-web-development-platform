@@ -5,7 +5,6 @@ namespace App\View\Components\Resources;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\App as AppModel;
 
 class ResourcesList extends Component
 {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Node;
+use App\Models\Resource;
 use App\Utilities\CommonService;
 use App\Utilities\HtmlNodeTypes;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +17,13 @@ class NodeController extends Controller
 
     public function index() {
 
+        $resources = Resource::all();
+
         $nodes = Node::query()->whereNull("parent_id")->get();
 
         return view("components.nodes.nodes", [
-            "nodes" => $nodes
+            "nodes" => $nodes,
+            "resources" => $resources
         ]);
 
     }
@@ -45,11 +49,14 @@ class NodeController extends Controller
 
     public  function edit(Node $node) {
 
+        $resources = Resource::all();
+
         $nodes = Node::query()->whereNull("parent_id")->get();
 
         return view("components.nodes.nodes", [
             "nodes" => $nodes,
-            "selectedNode" => $node
+            "selectedNode" => $node,
+            "resources" => $resources
         ]);
 
     }

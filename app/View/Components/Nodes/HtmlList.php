@@ -4,6 +4,8 @@ namespace App\View\Components\Nodes;
 
 use App\Models\Node as NodeModel;
 use App\Models\Nodes\HtmlForm;
+use App\Models\Nodes\HtmlSelect;
+use App\Models\Nodes\HtmlSharingSelect;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -15,6 +17,8 @@ class HtmlList extends Component
 
     public $nodes;
 
+    public $filters;
+
 
 
 
@@ -22,7 +26,7 @@ class HtmlList extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $selectedNode
+        public \App\Models\Node $selectedNode
         )
     {
 
@@ -36,8 +40,9 @@ class HtmlList extends Component
         $this->nodes = [];
 
         if ($this->selectedNode->html->binding_id) {
-
-            $this->nodes = NodeModel::all();
+            $this->filters = NodeModel::whereHasMorph("html", [HtmlSelect::class, HtmlSharingSelect::class])
+                ->where("parent_id", $this->selectedNode->html->binding->node->id)->get();
+            $this->nodes = NodeModel::where("parent_id", $this->selectedNode->html->binding->node->id)->get();
         }
 
 

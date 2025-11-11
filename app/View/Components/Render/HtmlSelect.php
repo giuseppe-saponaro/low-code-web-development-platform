@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Render;
 
+use App\Models\Node;
 use App\Models\SvIntegerValue;
 use App\Utilities\FieldTypes;
 use App\Utilities\Menu;
@@ -25,7 +26,7 @@ class HtmlSelect extends Component
      */
     public function __construct(
 
-        public $selectedNode
+        public Node $selectedNode
     )
     {
 

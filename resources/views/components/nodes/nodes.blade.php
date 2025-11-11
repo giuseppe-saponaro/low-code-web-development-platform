@@ -95,8 +95,35 @@
 
 		<div class="flex-grow-1">
 
+            <div class="p-4">
+
+                <h5>Risorse</h5>
+
+                <ul>
+
+                    @foreach($resources as $resource)
+
+                        <li>{{ $resource->name }}</li>
+
+                        <ul>
+
+                            @foreach($resource->fields as $field)
+
+                                <li>{{ $field->name }}</li>
+
+                            @endforeach
 
 
+
+                        </ul>
+
+                    @endforeach
+
+
+
+                </ul>
+
+            </div>
 
 
 		</div>

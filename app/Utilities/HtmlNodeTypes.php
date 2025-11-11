@@ -45,9 +45,10 @@ class HtmlNodeTypes
             "preview-component" => "preview.form",
             "start-component" => "start.form",
             "render-component" => "render.form",
-            "label" => "Form",
+            "label" => "Html Form",
             "form-component" => null
         ],
+        /*
         "FIELDSET" => [
             "class" => HtmlFieldset::class,
             "preview-component" => "preview.fieldset",
@@ -72,12 +73,13 @@ class HtmlNodeTypes
             "label" => "Col",
             "form-component" => "nodes.col"
         ],
+        */
         "INPUT_TEXT" => [
             "class" => HtmlInputText::class,
             "preview-component" => "preview.input-text",
             "start-component" => "start.input-text",
             "render-component" => "render.input-text",
-            "label" => "InputText",
+            "label" => "Html InputText",
             "form-component" => "nodes.input-text"
         ],
         "SELECT_SHARING" => [
@@ -85,7 +87,7 @@ class HtmlNodeTypes
             "preview-component" => null,
             "start-component" => null,
             "render-component" => "render.sharing-select",
-            "label" => "Sharing Select",
+            "label" => "Html Sharing Select",
             "form-component" => "nodes.sharing-select"
         ],
         "HTML_LIST" => [
@@ -117,7 +119,7 @@ class HtmlNodeTypes
             "preview-component" => null,
             "start-component" => null,
             "render-component" => "render.sublist-button",
-            "label" => "Sublist Button",
+            "label" => "Html Sublist Button",
             "form-component" => "nodes.sublist-button"
         ],
         "HTML_CHECKBOX" => [
