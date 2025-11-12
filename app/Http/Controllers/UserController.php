@@ -7,6 +7,7 @@ use App\Mail\UserInvite;
 use App\Models\InvitedUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,20 +34,24 @@ class UserController extends Controller
             "email" => "required|string|max:250|unique:users,email"
         ]);
 
-        $passsword = "temporanea" . 1000000 - random_int(1, 100000);
+        DB::transaction(function () {
 
-        $user = new User();
-        $user->name = request()->name;
-        $user->email = request()->email;
-        $user->password = Hash::make($passsword);
-        $user->save();
+            $passsword = "temporanea" . 1000000 - random_int(1, 100000);
 
-        $invitedUser = new InvitedUser();
-        $invitedUser->save();
+            $user = new User();
+            $user->name = request()->name;
+            $user->email = request()->email;
+            $user->password = Hash::make($passsword);
+            $user->save();
 
-        $invitedUser->user()->save($user);
+            $invitedUser = new InvitedUser();
+            $invitedUser->save();
 
-        Mail::to(request()->email)->send(new OwnerInvite($passsword));
+            $invitedUser->user()->save($user);
+
+            Mail::to(request()->email)->send(new OwnerInvite($passsword));
+
+        });
 
         return redirect("/users");
 
@@ -71,17 +76,21 @@ class UserController extends Controller
 
         request()->validate([
             "name" => "required|string|max:250",
-            "email" => "required|string|max:250|unique:users,email"
+            "email" => "required|string|max:250|unique:users,email,$user->id"
         ]);
 
-        $passsword = "temporanea" . 1000000 - random_int(1, 100000);
+        DB::transaction(function () use ($user) {
 
-        $user->name = request()->name;
-        $user->email = request()->email;
-        $user->password = Hash::make($passsword);
-        $user->save();
+            $passsword = "temporanea" . 1000000 - random_int(1, 100000);
 
-        Mail::to(request()->email)->send(new UserInvite($passsword));
+            $user->name = request()->name;
+            $user->email = request()->email;
+            $user->password = Hash::make($passsword);
+            $user->save();
+
+            Mail::to(request()->email)->send(new UserInvite($passsword));
+
+        });
 
         return redirect("/users/$user->id");
 
@@ -117,19 +126,13 @@ class UserController extends Controller
 
     private function updateAccount() {
 
-        $userId = Auth::user()->id;
-
         request()->validate([
-            "name" => "required|string|max:250",
-            "email" => "required|string|max:250|unique:users,email,$userId",
             "current_password" => "required|string|max:50|current_password",
             "password" => "required|string|max:50",
             "password2" => "required|string|max:50|same:password"
         ]);
 
         $user = Auth::user();
-        $user->name = request()->name;
-        $user->email = request()->email;
         $user->password = Hash::make(request()->password);
         $user->save();
 

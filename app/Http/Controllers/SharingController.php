@@ -6,6 +6,7 @@ use App\Models\App;
 use Illuminate\Http\Request;
 use App\Models\Sharing;
 use App\Utilities\SharingTypes;
+use Illuminate\Support\Facades\DB;
 
 class SharingController extends Controller
 {
@@ -50,11 +51,17 @@ class SharingController extends Controller
             "name" => "required|string|max:250|unique:sharings,name,$sharing->id"
         ]);
 
-        $sharing->name = request()->name;
-        $sharing->role_id = request()->role_id;
-        $sharing->save();
+        DB::transaction(function () use ($sharing) {
 
-        $sharing->changeSharingType(SharingTypes::$values[request()->sharing_type]["class"]);
+            $sharing->name = request()->name;
+            $sharing->role_id = request()->role_id;
+            $sharing->save();
+
+            if (request()->has("sharing_type") && request()->sharing_type) {
+                $sharing->changeSharingType(SharingTypes::$values[request()->sharing_type]["class"]);
+            }
+
+        });
 
         return redirect("/sharings/$sharing->id");
 
@@ -72,12 +79,15 @@ class SharingController extends Controller
 
     public function delete(Sharing $sharing) {
 
+        DB::transaction(function () use ($sharing) {
 
-        if ($sharing->sharingType) {
-            $sharing->sharingType->delete();
-        }
+            if ($sharing->sharingType) {
+                $sharing->sharingType->delete();
+            }
 
-        $sharing->delete();
+            $sharing->delete();
+
+        });
 
         return redirect("/sharings");
 

@@ -1,4 +1,4 @@
-<x-layout>
+        <x-layout>
 
 @isset($selected)
 Selected: {{ $selected->name }}

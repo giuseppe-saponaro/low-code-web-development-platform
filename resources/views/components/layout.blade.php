@@ -7,7 +7,7 @@
 
    	@vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/custom.css', 'resources/js/custom.js'])
 
-    <title>Applicazione di Test</title>
+    <title>{{ env("APP_NAME") }}</title>
   </head>
   <body>
   	<div class="d-flex flex-column h-100">

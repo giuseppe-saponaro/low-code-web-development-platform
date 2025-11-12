@@ -262,19 +262,6 @@ class NodeController extends Controller
     }
 
 
-
-
-    public function subrows(Node $node) {
-
-        $component = $node->html->listBinding->getSelectedNodeRenderComponent();
-
-        return view("components.ajax-component", [
-            "component" => $component,
-            "selectedNode" => $node
-        ]);
-
-    }
-
     public function renderHtmlListBody(Node $node, CommonService $commonService) {
 
         $rows = null;

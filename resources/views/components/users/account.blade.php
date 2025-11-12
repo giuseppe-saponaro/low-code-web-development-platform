@@ -2,29 +2,11 @@
 
     <div class="container mt-4">
 
+        <h5>Cambio Password</h5>
+
         <form action="/{{ $action }}" method="post">
             @csrf
             @method("put")
-
-            <div class="mb-3 form-floating">
-                <input type="text" class="form-control form-control-sm" name="name" value="{{ old("name", $user->name) }}"/>
-                <label>Nome</label>
-                @error("name")
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-
-            <div class="mb-3 form-floating">
-                <input type="text" class="form-control form-control-sm" name="email" value="{{ old("email", $user->email) }}"/>
-                <label>Email</label>
-                @error("email")
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
 
             <div class="mb-3 form-floating">
                 <input type="password" class="form-control form-control-sm" name="current_password" value="{{ old("current_password") }}"/>
