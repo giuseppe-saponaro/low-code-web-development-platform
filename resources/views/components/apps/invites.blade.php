@@ -3,6 +3,7 @@
 
 	<div class="d-flex flex-row h-100">
 
+        @isset($node)
 		<div class="border-end w-25 h-100 p-4">
 
             <ul>
@@ -15,6 +16,7 @@
             </ul>
 
 		</div>
+        @endisset
 
 		<div class="flex-grow-1">
 

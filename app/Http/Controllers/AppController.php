@@ -27,8 +27,13 @@ class AppController extends Controller
 
         $bootstrapNavbar = BootstrapNavbar::query()->first();
 
+        $node = null;
+        if ($bootstrapNavbar) {
+           $node =  $bootstrapNavbar->node;
+        }
+
         return view("components.apps.invites", [
-            "node" => $bootstrapNavbar->node
+            "node" => $node
         ]);
     }
 

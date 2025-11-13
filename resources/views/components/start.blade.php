@@ -49,7 +49,11 @@
         globalModal.addEventListener('shown.bs.modal', function (event) {
 
         	if (event.relatedTarget.dataset.method === 'post') {
-        		loadNode(event.relatedTarget.dataset.nodeId, "parent_row_id=" + event.relatedTarget.dataset.parentRowId, 'globalModalBody');
+                var qs = "";
+                if (event.relatedTarget.dataset.parentRowId) {
+                    qs = "parent_row_id=" + event.relatedTarget.dataset.parentRowId;
+                }
+        		loadNode(event.relatedTarget.dataset.nodeId, qs, 'globalModalBody');
         	} else if (event.relatedTarget.dataset.method === 'put') {
         		loadRow(event.relatedTarget.dataset.rowId, 'globalModalBody');
         	}

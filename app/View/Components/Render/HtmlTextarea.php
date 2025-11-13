@@ -3,7 +3,7 @@
 namespace App\View\Components\Render;
 
 use App\Models\Node as NodeModel;
-use app\Utilities\Menu;
+use App\Utilities\Menu;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;

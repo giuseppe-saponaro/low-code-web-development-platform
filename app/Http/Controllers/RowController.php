@@ -18,6 +18,7 @@ use App\Rules\MyUnique;
 use App\Utilities\CommonService;
 use App\Utilities\Permission;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use function Illuminate\Foundation\Console\redirectPath;
 
@@ -86,64 +87,70 @@ class RowController extends Controller
 
             }
 
-            $row = new Row;
+            $row = DB::transaction(function() use ($node) {
 
-            $row->form_id = $node->html->id;
+                $row = new Row;
 
-            $row->save();
+                $row->form_id = $node->html->id;
+
+                $row->save();
 
 
 
-            foreach (request()->nodes as $nodeId => $fieldValue) {
+                foreach (request()->nodes as $nodeId => $fieldValue) {
 
-                $node0 = Node::find($nodeId);
-
-                if (is_array($fieldValue)) {
-
-                    if (Auth::user()->canCreate($node0)) {
-
-                        foreach ($fieldValue as $fv) {
-
-                            $value = new Value();
-                            $value->row_id = $row->id;
-                            $value->field_id = $node0->html->binding->id;
-                            $value->save();
-
-                            $valueWithValue = new ($node0->html->binding->withType->getValueClass());
-                            if (method_exists($node0->html, "transformInput")) {
-                                $valueWithValue->value = $node0->html->transformInput($fv);
-                            } else {
-                                $valueWithValue->value = $fv;
-                            }
-                            $valueWithValue->save();
-
-                            $valueWithValue->value()->save($value);
-
-                        }
-                    }
-
-                } else {
                     $node0 = Node::find($nodeId);
 
-                    $value = new Value();
-                    $value->row_id = $row->id;
-                    $value->field_id = $node0->html->binding->id;
-                    $value->save();
+                    if (is_array($fieldValue)) {
 
-                    $valueWithValue = new ($node0->html->binding->withType->getValueClass());
-                    if (Auth::user()->canCreate($node0)) {
-                        if (method_exists($node0->html, "transformInput")) {
-                            $valueWithValue->value = $node0->html->transformInput($fieldValue);
-                        } else {
+                        if (Auth::user()->canCreate($node0)) {
 
-                            $valueWithValue->value = $fieldValue;
+                            foreach ($fieldValue as $fv) {
+
+                                $value = new Value();
+                                $value->row_id = $row->id;
+                                $value->field_id = $node0->html->binding->id;
+                                $value->save();
+
+                                $valueWithValue = new ($node0->html->binding->withType->getValueClass());
+                                if (method_exists($node0->html, "transformInput")) {
+                                    $valueWithValue->value = $node0->html->transformInput($fv);
+                                } else {
+                                    $valueWithValue->value = $fv;
+                                }
+                                $valueWithValue->save();
+
+                                $valueWithValue->value()->save($value);
+
+                            }
                         }
-                    }
-                    $valueWithValue->save();
 
-                    $valueWithValue->value()->save($value);
+                    } else {
+                        $node0 = Node::find($nodeId);
+
+                        $value = new Value();
+                        $value->row_id = $row->id;
+                        $value->field_id = $node0->html->binding->id;
+                        $value->save();
+
+                        $valueWithValue = new ($node0->html->binding->withType->getValueClass());
+                        if (Auth::user()->canCreate($node0)) {
+                            if (method_exists($node0->html, "transformInput")) {
+                                $valueWithValue->value = $node0->html->transformInput($fieldValue);
+                            } else {
+
+                                $valueWithValue->value = $fieldValue;
+                            }
+                        }
+                        $valueWithValue->save();
+
+                        $valueWithValue->value()->save($value);
+                    }
                 }
-            }
+
+                return $row;
+
+            });
 
 
             // TODO security check
@@ -189,7 +196,9 @@ class RowController extends Controller
                     ->withInput();
             }
 
-            foreach (request()->nodes as $nodeId => $fieldValue) {
+            DB::transaction(function () use ($row) {
+
+                foreach (request()->nodes as $nodeId => $fieldValue) {
 
                 $node0 = Node::find($nodeId);
 
@@ -274,6 +283,8 @@ class RowController extends Controller
 
             }
 
+            });
+
             // TODO security check
             $qs = \request()->getQueryString();
             $append = $qs?"?$qs":"";
@@ -288,9 +299,27 @@ class RowController extends Controller
 
         if (Auth::user()->canDelete($row->form->node)) {
 
-            $fksCount = FKValue::where("value", $row->id)->count();
-            if ($fksCount === 0) {
-                $row->delete();
+            $subselectsCount = HtmlSelect::query()
+                ->where("subselect", true)
+                ->whereHas("binding", function($query) use ($row) {
+                    $query->whereHas("allValues", function ($query) use ($row) {
+                        $query->whereHasMorph("withValue", [FKValue::class], function ($query) use ($row) {
+                            $query->where("value", $row->id);
+                        });
+                    });
+                })->count();
+
+            if ($subselectsCount === 0) {
+
+                DB::transaction(function () use($row) {
+                    foreach ($row->values as $value) {
+                        $value->withValue->delete();
+                        $value->delete();
+                    }
+                    $row->delete();
+                });
+
+
             } else {
                 abort(403, "Non puoi effettuare la cancellazione");
             }

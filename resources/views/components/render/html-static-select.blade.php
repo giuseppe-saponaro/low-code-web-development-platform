@@ -3,11 +3,16 @@
         <option value="">Seleziona uno ...</option>
         @foreach($options as $optiom)
             @if(!$selectedNode->html->multiple)
-                <option value="{{ $optiom->key }}" @if($optiom->key === old('', $value)) selected @endif>{{ $optiom->label }}</option>
+                <option value="{{ $optiom->key }}" @if($optiom->key === old("nodes.$selectedNode->id", $value)) selected @endif>{{ $optiom->label }}</option>
             @else
                 <option value="{{ $optiom->key }}" @if($value && in_array($optiom->key, $value)) selected @endif>{{ $optiom->label }}</option>
             @endif
         @endforeach
     </select>
     <label>{{ $selectedNode->label }}</label>
+    @error("nodes.$selectedNode->id")
+    <div class="text-danger">
+        {{ $message }}
+    </div>
+    @enderror
 </div>
