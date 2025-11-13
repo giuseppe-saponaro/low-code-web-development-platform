@@ -2,13 +2,14 @@
 
 namespace App\View\Components\Render;
 
+use App\Utilities\CommonService;
 use App\Utilities\Menu;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 use App\Models\Sharing;
 use App\Models\Node as NodeModel;
-use App\Utilities\FieldTypes;
 use App\Utilities\Permission;
 
 class SharingSelect extends Component
@@ -25,7 +26,21 @@ class SharingSelect extends Component
         )
     {
 
-        $this->sharings = Sharing::all();
+        if (Auth::user()->isInvitedUser()) {
+
+            $commonService = app()->make(CommonService::class);
+            $sharing = $commonService->getSharing();
+
+            $this->sharings = collect([$sharing]);
+
+        } else {
+
+            $this->sharings = Sharing::all();
+
+        }
+
+
+
 
 
         $row = Menu::getRow();
@@ -39,6 +54,14 @@ class SharingSelect extends Component
                     $this->value =  $value->value;
                 }
             }
+        }
+
+
+        // Security Check
+        $commonService = app()->make(CommonService::class);
+        if (Auth::user()->isInvitedUser() && $this->value !== $commonService->getFilteringValue($this->selectedNode)) {
+            // Unused
+            abort(403);
         }
     }
 
