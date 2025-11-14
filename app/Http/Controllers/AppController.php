@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\OwnerInvite;
 use App\Models\Nodes\BootstrapNavbar;
+use App\Models\Nodes\HtmlForm;
 use App\Models\Owner;
+use App\Models\Row;
+use App\Models\Sharing;
 use App\Models\User;
 use Brick\Math\Exception\MathException;
 use Illuminate\Support\Facades\DB;
@@ -77,6 +80,22 @@ class AppController extends Controller
         });
 
         return redirect("/apps/app");
+    }
+
+    public function exportData() {
+
+        $allRows = HtmlForm::query()->with(["node", "rows", "rows.values", "rows.values.field", "rows.values.field.withType", "rows.values.withValue"])->orderBy("id")->get();
+
+        $allUsers = User::all();
+
+        $allSharings = Sharing::query()->with(["sharingType"])->get();
+
+        echo "<pre>" . $allRows->toJson(JSON_PRETTY_PRINT) . "</pre>";
+
+        echo "<pre>" . $allUsers->toJson(JSON_PRETTY_PRINT) . "</pre>";
+
+        echo "<pre>" . $allSharings->toJson(JSON_PRETTY_PRINT) . "</pre>";
+
     }
 
 }

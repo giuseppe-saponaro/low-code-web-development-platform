@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get("/owner-account", [UserController::class, "ownerAccount"]);
         Route::put("/owner-account", [UserController::class, "updateOwnerAccount"]);
+
+        Route::get('/apps/owner-app/data', [AppController::class, 'exportData']);
     });
 });
 

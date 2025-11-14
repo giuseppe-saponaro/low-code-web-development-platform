@@ -20,6 +20,12 @@
 
 		<div class="flex-grow-1">
 
+            <div class="p-4">
+
+                <a class="btn btn-primary" href="/apps/owner-app/data">Esporta applicazione</a>
+
+            </div>
+
 		</div>
 
 	</div>
