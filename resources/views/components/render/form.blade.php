@@ -28,7 +28,7 @@ if (Request::filled("parent_row_id")) {
 	$component = $child->getSelectedNodeRenderComponent();
 	@endphp
 
-	@if(Auth::user()->canRead($child))
+	@if($component && $child && Auth::user()->canRead($child))
 	<x-dynamic-component :component="$component" :selectedNode="$child"/>
 	@endif
 

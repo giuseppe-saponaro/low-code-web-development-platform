@@ -31,10 +31,10 @@
         <div class="border-bottom mb-2">
             <div class="d-flex align-items-center">
                 <div class="w-75">
-                    @if(Auth::user()->canRead($selectedNode->html->node1))
+                    @if($selectedNode->html->node1 && Auth::user()->canRead($selectedNode->html->node1))
                         <div class="fw-normal">{{ $row->getValue($selectedNode->html->node1, $row)}}</div>
                     @endif
-                    @if(Auth::user()->canRead($selectedNode->html->node2, $row))
+                    @if($selectedNode->html->node2 && Auth::user()->canRead($selectedNode->html->node2))
                         <div class="fw-light">{{ $row->getValue($selectedNode->html->node2, $row)}}</div>
                     @endif
 

@@ -19,12 +19,21 @@ class Row extends Model
 
     public function getValue($node, $row) {
 
-        $genericValue = $node->html->binding->values($row)->first();
-        if ($genericValue) {
-            $value = $genericValue->withValue;
-            return $value->value;
-        } else {
-            return null;
+        if ($node->html && $node->html->binding) {
+            $genericValue = $node->html->binding->values($row)->first();
+            if ($genericValue) {
+
+
+                if ($genericValue->withValue) {
+                    $value = $genericValue->withValue;
+                    return $value->value;
+                } else {
+                    return null;
+                }
+
+            } else {
+                return null;
+            }
         }
 
 

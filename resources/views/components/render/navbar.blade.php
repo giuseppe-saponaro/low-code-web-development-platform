@@ -7,7 +7,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 @foreach($selectedNode->children as $item)
-                @if(Auth::user()->canRead($item))
+                @if($item && $item->html && $item->html->ref && Auth::user()->canRead($item))
                 <li class="nav-item">
                 	<a class="nav-link" href="javascript:void(0)" onclick="createRefresh({{ $item->html->ref->id }}, '', 'targetMenuContainer')">{{ $item->html->label }}</a>
                 </li>

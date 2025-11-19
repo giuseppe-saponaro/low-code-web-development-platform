@@ -29,6 +29,8 @@ class SharedNodeController extends Controller
 
     public function update(SharedNode $sharedNode) {
 
+        // TODO validate
+
         $sharedNode->can_create = request()->can_create === "on"?1:0;
         $sharedNode->can_read = request()->can_read === "on"?1:0;
         $sharedNode->can_update = request()->can_update === "on"?1:0;

@@ -21,11 +21,6 @@ class Node extends Model
         return $this->morphTo();
     }
 
-    public function matchingField(): MorphTo
-    {
-        return $this->morphTo();
-    }
-
     public function children() : HasMany {
 
         return $this->hasMany(Node::class, "parent_id", "id");
@@ -72,12 +67,6 @@ class Node extends Model
 
     public function parent() : BelongsTo {
         return $this->belongsTo(Node::class, "parent_id", "id");
-    }
-
-    public function app() : BelongsTo {
-
-        return $this->belongsTo(App::class, "app_id", "id");
-
     }
 
     public function sharing($sharingId) : BelongsToMany {

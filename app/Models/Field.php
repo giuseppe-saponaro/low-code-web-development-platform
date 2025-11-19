@@ -32,7 +32,7 @@ class Field extends Model
 
         if ($this->with_type_type !== $newFieldTypeClass) {
 
-            if ($this->withType) {
+            if ($this->with_type_type) {
                 $this->withType->delete();
             }
 
@@ -50,7 +50,7 @@ class Field extends Model
         return $this->hasMany(Value::class, "field_id")->where("row_id", $row->id);
     }
 
-    public function values0($rowId) : HasMany {
+    public function values0(int $rowId) : HasMany {
         return $this->hasMany(Value::class, "field_id")->where("row_id", $rowId);
     }
 

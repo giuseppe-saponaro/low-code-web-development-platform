@@ -16,9 +16,11 @@ use App\Http\Middleware\UserIsAdmin;
 use App\Http\Middleware\UserIsOwner;
 use App\Http\Middleware\UserIsInvitedUser;
 
+/*
 Route::get('/', function () {
     return view('components.dashboard');
 });
+*/
 
 Route::middleware('auth')->group(function () {
     Route::middleware(UserIsOwner::class)->group(function () {
@@ -128,10 +130,10 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::get('login', [LoginController::class, 'login'])->name('login');
-Route::post('authenticate', [LoginController::class, 'authenticate']);
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/authenticate', [LoginController::class, 'authenticate']);
 Route::middleware('auth')->group(function () {
-    Route::get('logout', [LoginController::class, 'logout']);
+    Route::get('/logout', [LoginController::class, 'logout']);
 });
 
 

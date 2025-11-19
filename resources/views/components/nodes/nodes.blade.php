@@ -10,6 +10,7 @@
 			@endisset
 
 
+            @isset($nodes)
 			<ul>
 
                 <li><a href="/apps/app">App</a></li>
@@ -33,6 +34,7 @@
             	</ul>
 
             </ul>
+            @endisset
 
         	@if(!isset($selectedNode))
             <form action="/nodes" method="post">
@@ -95,6 +97,7 @@
 
 		<div class="flex-grow-1">
 
+            @isset($resources)
             <div class="p-4">
 
                 <h5>Risorse</h5>
@@ -124,6 +127,7 @@
                 </ul>
 
             </div>
+            @endisset
 
 
 		</div>

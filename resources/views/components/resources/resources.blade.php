@@ -13,7 +13,9 @@
 			<x-resources.field :selectedField="$selectedField" />
 			@endisset
 
+            @isset($resources)
 			<x-resources.resources-list :resources="$resources"/>
+            @endisset
 
         	@if(!isset($selectedResource) && !isset($selectedField))
             <x-resources.resources-list-action-create-resource/>

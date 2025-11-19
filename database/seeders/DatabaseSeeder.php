@@ -54,14 +54,26 @@ class DatabaseSeeder extends Seeder
 
 
         $user3 = new User();
-        $user3->name = "Invited";
-        $user3->email = "invited@example.com";
+        $user3->name = "User1";
+        $user3->email = "user1@example.com";
         $user3->password = Hash::make("123");
         $user3->save();
 
         $invitedUser = new InvitedUser();
         $invitedUser->save();
         $invitedUser->user()->save($user3);
+
+
+
+        $user4 = new User();
+        $user4->name = "User2";
+        $user4->email = "user2@example.com";
+        $user4->password = Hash::make("123");
+        $user4->save();
+
+        $invitedUser2 = new InvitedUser();
+        $invitedUser2->save();
+        $invitedUser2->user()->save($user4);
 
 
 

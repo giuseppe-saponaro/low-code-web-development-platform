@@ -49,17 +49,26 @@ class FieldController extends Controller
     public  function update(Field $field) {
 
         request()->validate([
-            "name" => "required|string|max:250"
+            "name" => "required|string|max:250",
+            "required" => "nullable|boolean",
+            "unique" => "nullable|boolean"
         ]);
 
-        $field->name = request()->name;
-        $field->required = (request()->required==="on")?true:false;
-        $field->unique = (request()->unique==="on")?true:false;
-        $field->save();
+        DB::transaction(function () use ($field) {
 
-        if (request()->has("field_type") && request()->field_type) {
-            $field->changeWithType(FieldTypes::getValues()[request()->field_type]["class"]);
-        }
+            $field->name = request()->name;
+            $field->required = (request()->required === "on") ? true : false;
+            $field->unique = (request()->unique === "on") ? true : false;
+            $field->save();
+
+            if (request()->has("field_type") && request()->field_type) {
+                $newFieldTypeClass = FieldTypes::getValues()[request()->field_type]["class"];
+                if ($newFieldTypeClass) {
+                    $field->changeWithType(FieldTypes::getValues()[request()->field_type]["class"]);
+                }
+            }
+
+        });
 
         return redirect("/fields/$field->id");
 
@@ -67,8 +76,12 @@ class FieldController extends Controller
 
     public  function updateEnumField(Field $field) {
 
-        $field->withType->options = request()->options;
-        $field->withType->save();
+        // TODO validate request()->options
+
+        if ($field->withType) {
+            $field->withType->options = request()->options;
+            $field->withType->save();
+        }
 
         return redirect("/fields/$field->id");
 
@@ -76,8 +89,12 @@ class FieldController extends Controller
 
     public  function updateFkField(Field $field) {
 
-        $field->withType->for_sharing = (request()->for_sharing==="on")?true:false;
-        $field->withType->save();
+        // TODO validate request()->for_sharing
+
+        if ($field->withType) {
+            $field->withType->for_sharing = (request()->for_sharing === "on") ? true : false;
+            $field->withType->save();
+        }
 
         return redirect("/fields/$field->id");
 

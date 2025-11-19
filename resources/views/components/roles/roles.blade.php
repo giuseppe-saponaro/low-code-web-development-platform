@@ -9,7 +9,9 @@
 			<x-roles.role :selectedRole="$selectedRole" />
 			@endisset
 
+            @isset($roles)
 			<x-roles.roles-list :roles="$roles"/>
+            @endisset
 
 			@empty($selectedRole)
       		<form action="/roles" method="post">
@@ -50,7 +52,7 @@
 
 		<div class="flex-grow-1">
 
-			@isset($selectedRole)
+			@if(null !== $selectedRole && null !== $rootNodes)
 			<div class="p-4">
 
 
@@ -70,7 +72,7 @@
 
 
 			</div>
-			@endisset
+            @endif
 
 		</div>
 

@@ -75,7 +75,11 @@ class NodeController extends Controller
             $node->save();
 
             if (request()->has("html_type") && request()->html_type) {
-                $node->changeHtmlType(HtmlNodeTypes::getValues()[request()->html_type]["class"]);
+                $newFieldTypeClass = HtmlNodeTypes::getValues()[request()->html_type]["class"];
+                if ($newFieldTypeClass) {
+                    $node->changeHtmlType($newFieldTypeClass);
+                }
+
             }
 
         });
@@ -86,8 +90,12 @@ class NodeController extends Controller
 
     public  function updateInputText(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate request()->binding
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
 
         return redirect("/nodes/$node->id");
 
@@ -96,9 +104,13 @@ class NodeController extends Controller
 
     public  function updateNavLink(Node $node) {
 
-        $node->html->label = request()->label;
-        $node->html->ref_id = request()->ref;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->label = request()->label;
+            $node->html->ref_id = request()->ref;
+            $node->html->save();
+        }
 
         return redirect("/nodes/$node->id");
 
@@ -106,11 +118,15 @@ class NodeController extends Controller
 
     public  function updateHtmlList(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->node_id1 = request()->node1;
-        $node->html->node_id2 = request()->node2;
-        $node->html->default_filter_binding_id = request()->default_filter_binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->node_id1 = request()->node1;
+            $node->html->node_id2 = request()->node2;
+            $node->html->default_filter_binding_id = request()->default_filter_binding;
+            $node->html->save();
+        }
 
         return redirect("/nodes/$node->id");
 
@@ -118,8 +134,12 @@ class NodeController extends Controller
 
     public  function updateSharingSelect(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
 
         return redirect("/nodes/$node->id");
 
@@ -127,13 +147,17 @@ class NodeController extends Controller
 
     public  function updateHtmlSelect(Node $node) {
 
-        $node->html->auth_filtered = (request()->auth_filtered==="on")?true:false;
-        $node->html->subselect = (request()->subselect==="on")?true:false;
-        $node->html->multiple = (request()->multiple==="on")?true:false;
-        $node->html->binding_id = request()->binding;
-        $node->html->form_binding_id = request()->form_binding;
-        $node->html->form_field_binding_id = request()->form_field_binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->auth_filtered = (request()->auth_filtered === "on") ? true : false;
+            $node->html->subselect = (request()->subselect === "on") ? true : false;
+            $node->html->multiple = (request()->multiple === "on") ? true : false;
+            $node->html->binding_id = request()->binding;
+            $node->html->form_binding_id = request()->form_binding;
+            $node->html->form_field_binding_id = request()->form_field_binding;
+            $node->html->save();
+        }
 
         return redirect("/nodes/$node->id");
 
@@ -141,57 +165,92 @@ class NodeController extends Controller
 
     public  function updateHtmlStaticSelect(Node $node) {
 
-        $node->html->multiple = (request()->multiple==="on")?true:false;
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->multiple = (request()->multiple === "on") ? true : false;
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
 
     public  function updateSublistButton(Node $node) {
 
-        $node->html->list_binding_id = request()->list_binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->list_binding_id = request()->list_binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
 
     public  function updateHtmlCheckbox(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
 
     public  function updateHtmlDate(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
 
     public  function updateHtmlTime(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
 
     public  function updateHtmlDateTime(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
 
     public  function updateTextarea(Node $node) {
 
-        $node->html->binding_id = request()->binding;
-        $node->html->save();
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
         return redirect("/nodes/$node->id");
 
     }
