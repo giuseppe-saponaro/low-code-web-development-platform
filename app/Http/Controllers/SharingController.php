@@ -58,7 +58,10 @@ class SharingController extends Controller
             $sharing->save();
 
             if (request()->has("sharing_type") && request()->sharing_type) {
-                $sharing->changeSharingType(SharingTypes::$values[request()->sharing_type]["class"]);
+                $newSharingTypeClass = SharingTypes::getValues()[request()->sharing_type]["class"];
+                if ($newSharingTypeClass) {
+                    $sharing->changeSharingType($newSharingTypeClass);
+                }
             }
 
         });
@@ -69,8 +72,12 @@ class SharingController extends Controller
 
     public  function update2(Sharing $sharing) {
 
-        $sharing->sharingType->email = request()->email;
-        $sharing->sharingType->save();
+        // TODO validate
+
+        if ($sharing->sharingType) {
+            $sharing->sharingType->email = request()->email;
+            $sharing->sharingType->save();
+        }
 
         return redirect("/sharings/$sharing->id");
 

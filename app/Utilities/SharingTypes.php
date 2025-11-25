@@ -6,7 +6,7 @@ use App\Models\Invite;
 class SharingTypes
 {
 
-    public static $values = [
+    private static $values = [
         "INVITED_USER" => [
             "class" => Invite::class,
             "component" => "sharings.invited-user",

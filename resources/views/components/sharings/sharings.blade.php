@@ -8,7 +8,9 @@
 			<x-sharings.sharing :selectedSharing="$selectedSharing" />
 			@endisset
 
+            @isset($sharings)
 			<x-sharings.sharings-list :sharings="$sharings"/>
+            @endisset
 
             @empty($selectedSharing)
             <form action="/sharings" method="post">

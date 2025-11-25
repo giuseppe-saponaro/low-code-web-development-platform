@@ -31,7 +31,7 @@ class Sharing extends Component
         $type = SharingTypes::getSectedSharingType($this->selectedSharing);
 
         if ($type) {
-            $this->sharingFormComponent = SharingTypes::$values[$type]["component"];
+            $this->sharingFormComponent = SharingTypes::getValues()[$type]["component"];
         }
 
         $this->roles = Role::all();

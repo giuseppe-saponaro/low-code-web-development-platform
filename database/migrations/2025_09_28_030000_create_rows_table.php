@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rows', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('form_id')->nullable();
+            $table->unsignedBigInteger('form_id');
             $table->foreign('form_id')->references('id')->on('html_forms');
             $table->timestamps();
         });
