@@ -2,7 +2,7 @@
 
     <li><a class="btn btn-sm btn"href="/apps/app">App</a></li>
 
-	<li><a class="btn btn-sm btn" href="/roles">Ruoli</a></li>
+	<li><a class="btn btn-sm btn" href="/roles">Roles</a></li>
 
 	<ul>
 		@foreach($roles as $role)

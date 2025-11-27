@@ -46,7 +46,7 @@
 
                 <li><a class="btn btn-sm btn" href="/apps/owner-app">App</a></li>
 
-                <li><a class="btn btn-sm btn" href="/users">Utenti Invitati</a></li>
+                <li><a class="btn btn-sm btn" href="/users">Invited Users</a></li>
 
                 <ul>
 

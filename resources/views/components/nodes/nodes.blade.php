@@ -15,7 +15,7 @@
 
                 <li><a class="btn btn-sm btn" href="/apps/app">App</a></li>
 
-            	<li><a class="btn btn-sm btn" href="/nodes">Nodi</a></li>
+            	<li><a class="btn btn-sm btn" href="/nodes">Nodes</a></li>
 
             	<ul>
 

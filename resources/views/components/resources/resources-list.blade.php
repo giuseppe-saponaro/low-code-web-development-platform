@@ -2,7 +2,7 @@
 
     <li><a class="btn btn-sm btn" href="/apps/app">App</a></li>
 
-	<li><a class="btn btn-sm btn" href="/resources">Risorse</a></li>
+	<li><a class="btn btn-sm btn" href="/resources">Resources</a></li>
 
 	<ul>
 
