@@ -42,8 +42,26 @@
                     }
                 }
             </script>
-            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina campo</a>
+            <a class="btn btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Elimina campo</a>
 			@endisset
+
+
+            @if(!isset($selectedResource) && !isset($selectedField))
+            <form action="/resources/template1" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-sm mt-3" href="">Create Resource and 2 Fields</button>
+            </form>
+
+            <form action="/resources/template2" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-sm mt-3" href="">Create Resource and 4 Fields</button>
+            </form>
+
+            <form action="/resources/template3" method="post">
+                @csrf
+                <button type="submit" class="btn btn-primary btn-sm mt-3" href="">Create Resource and 6 Fields</button>
+            </form>
+            @endif
 
 		</div>
 

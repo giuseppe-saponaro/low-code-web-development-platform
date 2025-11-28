@@ -191,7 +191,7 @@ class RowController extends Controller
     }
 
 
-    private function updateSingleValue(bool $authUpdate, bool $authStore, array $fieldValue, Row $row , Node $node0) {
+    private function updateSingleValue(bool $authUpdate, bool $authStore, mixed $fieldValue, Row $row , Node $node0) {
 
         if ($node0->html && $node0->html->binding && $node0->html->binding->withType) {
 
@@ -321,7 +321,7 @@ class RowController extends Controller
 
                     $node0 = Node::find($nodeId);
                     $auth = Auth::user()->canUpdate($node0);
-                    $authStore = Auth::user()->canStore($node0);
+                    $authStore = Auth::user()->canCreate($node0);
 
                     if (is_array($fieldValue)) {
 

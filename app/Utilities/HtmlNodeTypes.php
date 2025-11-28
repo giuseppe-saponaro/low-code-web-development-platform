@@ -80,7 +80,8 @@ class HtmlNodeTypes
             "start-component" => "start.input-text",
             "render-component" => "render.input-text",
             "label" => "Html InputText",
-            "form-component" => "nodes.input-text"
+            "form-component" => "nodes.input-text",
+            "is-input" => true
         ],
         "SELECT_SHARING" => [
             "class" => HtmlSharingSelect::class,
@@ -88,7 +89,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.sharing-select",
             "label" => "Html Sharing Select",
-            "form-component" => "nodes.sharing-select"
+            "form-component" => "nodes.sharing-select",
+            "is-input" => true
         ],
         "HTML_LIST" => [
             "class" => HtmlList::class,
@@ -104,7 +106,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-select",
             "label" => "Html Select",
-            "form-component" => "nodes.select"
+            "form-component" => "nodes.select",
+            "is-input" => true
         ],
         "HTML_STATIC_SELECT" => [
             "class" => HtmlStaticSelect::class,
@@ -112,7 +115,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-static-select",
             "label" => "Html Static Select",
-            "form-component" => "nodes.html-static-select"
+            "form-component" => "nodes.html-static-select",
+            "is-input" => true
         ],
         "SUBLIST_BUTTON" => [
             "class" => SublistButton::class,
@@ -128,7 +132,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-checkbox",
             "label" => "Html Checkbox",
-            "form-component" => "nodes.html-checkbox"
+            "form-component" => "nodes.html-checkbox",
+            "is-input" => true
         ],
         "HTML_DATE" => [
             "class" => HtmlDate::class,
@@ -136,7 +141,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-date",
             "label" => "Html Date",
-            "form-component" => "nodes.html-date"
+            "form-component" => "nodes.html-date",
+            "is-input" => true
         ],
         "HTML_TIME" => [
             "class" => HtmlTime::class,
@@ -144,7 +150,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-time",
             "label" => "Html Time",
-            "form-component" => "nodes.html-time"
+            "form-component" => "nodes.html-time",
+            "is-input" => true
         ],
         "HTML_DATE_TIME" => [
             "class" => HtmlDateTime::class,
@@ -152,7 +159,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-date-time",
             "label" => "Html Date Time",
-            "form-component" => "nodes.html-date-time"
+            "form-component" => "nodes.html-date-time",
+            "is-input" => true
         ],
         "HTML_LIST_BODY" => [
             "class" => HtmlListBody::class,
@@ -168,7 +176,8 @@ class HtmlNodeTypes
             "start-component" => null,
             "render-component" => "render.html-textarea",
             "label" => "Html Textarea",
-            "form-component" => "nodes.html-textarea"
+            "form-component" => "nodes.html-textarea",
+            "is-input" => true
         ]
 
     ];

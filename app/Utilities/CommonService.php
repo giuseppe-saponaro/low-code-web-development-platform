@@ -148,6 +148,7 @@ class CommonService
 
         $rows = $node->html->binding->filteredRows($defaultFilterValue, $filters);
 
+        return $rows;
     }
 
 }

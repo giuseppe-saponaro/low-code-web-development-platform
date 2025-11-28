@@ -61,12 +61,18 @@ Route::middleware('auth')->group(function () {
         Route::put('/resources/{resource}', [ResourceController::class, 'update']);
         Route::get('/resources/{resource}/delete', [ResourceController::class, 'delete']);
 
+
         Route::post('/resources/{resource}/fields', [FieldController::class, 'store']);
         Route::get('/fields/{field}', [FieldController::class, 'edit']);
         Route::put('/fields/{field}', [FieldController::class, 'update']);
         Route::put('/fields2/{field}', [FieldController::class, 'updateEnumField']);
         Route::put('/fields3/{field}', [FieldController::class, 'updateFkField']);
         Route::get('/fields/{field}/delete', [FieldController::class, 'delete']);
+
+        Route::post('/resources/template1', [ResourceController::class, 'createTemplate1']);
+        Route::post('/resources/template2', [ResourceController::class, 'createTemplate2']);
+        Route::post('/resources/template3', [ResourceController::class, 'createTemplate3']);
+        Route::post('/resources/{resource}/autocreate-nodes', [ResourceController::class, 'autoCreateNodes']);
 
         Route::get('/nodes', [NodeController::class, 'index']);
         Route::post('/nodes', [NodeController::class, 'store']);

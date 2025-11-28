@@ -26,7 +26,6 @@ class HtmlList extends Component
         $commonService = app()->make(CommonService::class);
         $this->rows = $commonService->getHtmlListFilteredRows($this->selectedNode);
 
-
     }
 
 

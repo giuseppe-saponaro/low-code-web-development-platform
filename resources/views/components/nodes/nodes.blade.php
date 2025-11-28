@@ -123,7 +123,13 @@
 
                     @foreach($resources as $resource)
 
-                        <li>{{ $resource->name }}</li>
+                        <li>
+                            {{ $resource->name }}
+                            <form action="/resources/{{ $resource->id }}/autocreate-nodes" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-primary">Create Nodes</button>
+                            </form>
+                        </li>
 
                         <ul>
 

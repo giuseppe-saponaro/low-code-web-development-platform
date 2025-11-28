@@ -11,6 +11,14 @@ use App\Models\FieldTypes\IntegerField;
 use App\Models\FieldTypes\StringField;
 use App\Models\FieldTypes\TextField;
 use App\Models\FieldTypes\TimeField;
+use App\Models\Nodes\HtmlCheckbox;
+use App\Models\Nodes\HtmlDate;
+use App\Models\Nodes\HtmlDateTime;
+use App\Models\Nodes\HtmlInputText;
+use App\Models\Nodes\HtmlSelect;
+use App\Models\Nodes\HtmlStaticSelect;
+use App\Models\Nodes\HtmlTextarea;
+use App\Models\Nodes\HtmlTime;
 
 class FieldTypes
 {
@@ -19,52 +27,62 @@ class FieldTypes
         "STRING" => [
             "class" => StringField::class,
             "form-component" => null,
-            "label" => "String"
+            "label" => "String",
+            "default-html-component" => HtmlInputText::class
         ],
         "INTEGER" => [
             "class" => IntegerField::class,
             "form-component" => null,
-            "label" => "Integer"
+            "label" => "Integer",
+            "default-html-component" => HtmlInputText::class
         ],
         "FLOAT" => [
             "class" => FloatField::class,
             "form-component" => null,
-            "label" => "Float"
+            "label" => "Float",
+            "default-html-component" => HtmlInputText::class
         ],
         "BOOLEAN" => [
             "class" => BooleanField::class,
             "form-component" => null,
-            "label" => "Boolean"
+            "label" => "Boolean",
+            "default-html-component" => HtmlCheckbox::class
         ],
         "FK" => [
             "class" => FKField::class,
             "form-component" => "resources.fk-field",
-            "label" => "Foreign Key"
+            "label" => "Foreign Key",
+            "default-html-component" => HtmlSelect::class
         ],
         "ENUM" => [
             "class" => EnumField::class,
             "form-component" => "resources.enum-field",
-            "label" => "Enum"
+            "label" => "Enum",
+            "default-html-component" => HtmlStaticSelect::class
         ],
         "DATE" => [
             "class" => DateField::class,
             "form-component" => null,
-            "label" => "Date"
+            "label" => "Date",
+            "default-html-component" => HtmlDate::class
         ],
         "TIME" => [
             "class" => TimeField::class,
             "form-component" => null,
-            "label" => "Time"
+            "label" => "Time",
+            "default-html-component" => HtmlTime::class
         ],
         "DATE_TIME" => [
             "class" => DateTimeField::class,
             "form-component" => null,
-            "label" => "Date Time"
+            "label" => "Date Time",
+            "default-html-component" => HtmlDateTime::class
         ],
         "TEXT" => [
             "class" => TextField::class,
             "form-component" => null,
-            "label" => "Text"
+            "label" => "Text",
+            "default-html-component" => HtmlTextarea::class
         ]
     ];
 
