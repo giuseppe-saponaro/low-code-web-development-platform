@@ -271,6 +271,20 @@ class NodeController extends Controller
     }
 
 
+    public  function updateHtmlInputFile(Node $node) {
+
+        // TODO validate
+
+        if ($node->html) {
+            $node->html->binding_id = request()->binding;
+            $node->html->save();
+        }
+
+        return redirect("/nodes/$node->id");
+
+    }
+
+
 
     public  function storeChild(Node $node) {
 

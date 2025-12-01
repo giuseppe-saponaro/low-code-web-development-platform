@@ -25,13 +25,13 @@
             <x-resources.resources-list-action-create-field :selectedResource="$selectedResource" />
             <script>
                 function confirmDelete() {
-                    if(confirm("Do you want to delete the selected resource ? (this operation will delete related fields and nodes)")) {
+                    if(confirm('{{ __("main.resources.Do you want to delete the selected resource ?") }}')) {
                         window.location.href = "/resources/{{ $selectedResource->id }}/delete";
                     }
                 }
             </script>
             <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">
-                <i class="bi bi-trash"></i> Delete Resource
+                <i class="bi bi-trash"></i> {{ __("main.resources.Delete resource") }}
             </a>
             @endisset
 
@@ -39,13 +39,13 @@
             @isset($selectedField)
             <script>
                 function confirmDelete() {
-                    if(confirm("Do you want to delete the selected field ? (this operation will delete related nodes)")) {
+                    if(confirm("{{ __("main.resources.Do you want to delete the selected field ?") }}")) {
                         window.location.href = "/fields/{{ $selectedField->id }}/delete";
                     }
                 }
             </script>
             <a class="btn btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">
-                <i class="bi bi-trash"></i> Delete Field
+                <i class="bi bi-trash"></i> {{ __("main.resources.Delete field") }}
             </a>
 			@endisset
 
@@ -54,21 +54,21 @@
             <form action="/resources/template1" method="post">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-sm mt-3" href="">
-                    <i class="bi bi-plus-circle"></i> Create template 1
+                    <i class="bi bi-plus-circle"></i> {{ __("main.resources.Create template") }} 1
                 </button>
             </form>
 
             <form action="/resources/template2" method="post">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-sm mt-3" href="">
-                    <i class="bi bi-plus-circle"></i> Create template 2
+                    <i class="bi bi-plus-circle"></i> {{ __("main.resources.Create template") }} 2
                 </button>
             </form>
 
             <form action="/resources/template3" method="post">
                 @csrf
                 <button type="submit" class="btn btn-primary btn-sm mt-3" href="">
-                    <i class="bi bi-plus-circle"></i> Create template 3
+                    <i class="bi bi-plus-circle"></i> {{ __("main.resources.Create template") }} 3
                 </button>
             </form>
             @endif

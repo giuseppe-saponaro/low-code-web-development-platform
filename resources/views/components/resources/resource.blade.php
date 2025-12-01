@@ -8,7 +8,7 @@
 
 		<div class="mb-3 form-floating">
 			<input type="text" class="form-control form-control-sm" name="name" value="{{ old('name', $selectedResource->name) }}"/>
-			<label>Resource name</label>
+                <label>{{ __("main.resources.Resource name") }}</label>
             @error("name")
             <div class="text-danger">
                 {{ $message }}
@@ -17,7 +17,7 @@
 		</div>
 
         <button type="submit" class="btn btn-primary btn-sm mb-3">
-            <i class="bi bi-save"></i> Save
+            <i class="bi bi-save"></i> {{ __("main.resources.Save") }}
         </button>
 
 	</form>

@@ -4,16 +4,16 @@
 
 	<div class="mb-3 form-floating">
         <select class="form-select" name="binding" aria-label="Campo">
-            <option value="" selected>Select ...</option>
+            <option value="" selected>{{ __("main.nodes.Select") }} ...</option>
             @foreach($fields as $field)
             <option value="{{ $field->id }}" @if ($field->id == old('binding', $selectedNode->html->binding_id)) selected @endif>{{ $field->resource->name }}\{{ $field->name }}</option>
             @endforeach
             </select>
-		<label>Campo</label>
+		<label>{{ __("main.nodes.Binding field") }}</label>
     </div>
 
     <button type="submit" class="btn btn-primary btn-sm mb-3">
-        <i class="bi bi-save"></i> Save
+        <i class="bi bi-save"></i> {{ __("main.nodes.Save") }}
     </button>
 
 </form>

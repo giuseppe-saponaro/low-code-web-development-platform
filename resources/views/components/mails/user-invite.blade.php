@@ -1,5 +1,5 @@
-Questa è la password per effettuare il primo accesso.
+{{ __("This is the first access password") }}.
 <br>
 {{ $password }}
 <br>
-Cambiala il prima possibile
+{{ __("You must change it") }}.

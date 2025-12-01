@@ -11,6 +11,7 @@ use App\Models\FieldTypes\IntegerField;
 use App\Models\FieldTypes\StringField;
 use App\Models\FieldTypes\TextField;
 use App\Models\FieldTypes\TimeField;
+use App\Models\FieldTypes\TimestampField;
 use App\Models\Nodes\HtmlCheckbox;
 use App\Models\Nodes\HtmlDate;
 use App\Models\Nodes\HtmlDateTime;
@@ -83,6 +84,12 @@ class FieldTypes
             "form-component" => null,
             "label" => "Text",
             "default-html-component" => HtmlTextarea::class
+        ],
+        "TIMESTAMP" => [
+            "class" => TimestampField::class,
+            "form-component" => null,
+            "label" => "Timestamp",
+            "default-html-component" => null
         ]
     ];
 

@@ -8,7 +8,7 @@
 
 		<div class="mb-3 form-floating">
 			<input type="text" class="form-control form-control-sm" name="name" value="{{ old('name', $selectedSharing->name) }}"/>
-			<label>Sharing name</label>
+			<label>{{ __("main.sharings.Sharing name") }}</label>
             @error("name")
             <div class="text-danger">
                 {{ $message }}
@@ -18,28 +18,28 @@
 
 		<div class="mb-3 form-floating">
             <select class="form-select" name="role_id" aria-label="Ruolo">
-                <option value="" selected>Select ...</option>
+                <option value="" selected>{{ __("main.sharings.Select") }} ...</option>
                 @foreach($roles as $value => $role)
                 <option value="{{ $role->id }}" @if ($role->id == old('role_id', $selectedSharing->role_id)) selected @endif>{{ $role->name }}</option>
                 @endforeach
             </select>
-			<label>Role</label>
+			<label>{{ __("main.sharings.Role") }}</label>
         </div>
 
 		<div class="mb-3 form-floating">
             <select class="form-select" name="sharing_type" aria-label="Tipo di condivisione">
-                <option value="" selected>Seleziona uno ...</option>
+                <option value="" selected>{{ __("main.sharings.Select") }} ...</option>
                 @foreach($Utility::getValues() as $value => $sharing)
                 <option value="{{ $value }}" @if ($value == old('n', $Utility::getSectedSharingType($selectedSharing))) selected @endif>{{ $sharing["label"] }}</option>
                 @endforeach
             </select>
-			<label>Sharing type</label>
+			<label>{{ __("main.sharings.Sharing type") }}</label>
         </div>
 
 
 
         <button type="submit" class="btn btn-primary btn-sm mb-3">
-            <i class="bi bi-save"></i> Save
+            <i class="bi bi-save"></i> {{ __("main.sharings.Save") }}
         </button>
 
 	</form>

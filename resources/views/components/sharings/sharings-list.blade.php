@@ -1,8 +1,8 @@
 <ul>
 
-    <li><a class="btn btn-sm btn"  href="/apps/owner-app">App</a></li>
+    <li><a class="btn btn-sm btn"  href="/apps/owner-app">{{ __("main.sharings.App") }}</a></li>
 
-	<li><a class="btn btn-sm btn"  href="/sharings">Sharings</a></li>
+	<li><a class="btn btn-sm btn"  href="/sharings">{{ __("main.sharings.Sharings") }}</a></li>
 
 	<ul>
 

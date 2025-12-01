@@ -10,7 +10,7 @@ $sharedNode = $selectedRole->sharedNode($node);
 <form action="/roles/{{ $selectedRole->id }}/nodes/{{ $node->id }}/shared-nodes" method="post">
 	@csrf
 	<button type="submit" class="btn btn-success btn-sm">
-        <i class="bi bi-plus-circle"></i> Create Permissions
+        <i class="bi bi-plus-circle"></i> {{ __("main.roles.Create permissions") }}
     </button>
 </form>
 
@@ -22,36 +22,36 @@ $sharedNode = $selectedRole->sharedNode($node);
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="can_create" name="can_create" @if($sharedNode->can_create) checked @endif>
         <label class="form-check-label" for="can_create">
-        	Can Create
+            {{ __("main.roles.Can create") }}
         </label>
     </div>
 
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="can_read" name="can_read" @if($sharedNode->can_read) checked @endif>
         <label class="form-check-label" for="can_read">
-        	Can Read
+            {{ __("main.roles.Can read") }}
         </label>
     </div>
 
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="can_update" name="can_update" @if($sharedNode->can_update) checked @endif>
         <label class="form-check-label" for="can_update">
-        	Can Update
+            {{ __("main.roles.Can update") }}
         </label>
     </div>
 
     <div class="form-check">
         <input class="form-check-input" type="checkbox" id="can_delete" name="can_delete" @if($sharedNode->can_delete) checked @endif>
         <label class="form-check-label" for="can_delete">
-        	Can Delete
+            {{ __("main.roles.Can delete") }}
         </label>
     </div>
 
     <button type="submit" class="btn btn-primary btn-sm">
-        <i class="bi bi-save"></i> Save
+        <i class="bi bi-save"></i> {{ __("main.resources.Save") }}
     </button>
     <a class="btn btn-danger btn-sm" href="/shared-nodes/{{ $sharedNode->id }}/delete">
-        <i class="bi bi-trash"></i> Delete
+        <i class="bi bi-trash"></i> {{ __("main.roles.Delete") }}
     </a>
 </form>
 @endif

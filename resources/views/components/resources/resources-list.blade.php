@@ -1,8 +1,8 @@
 <ul>
 
-    <li><a class="btn btn-sm btn" href="/apps/app">App</a></li>
+    <li><a class="btn btn-sm btn" href="/apps/app">{{ __("main.resources.App") }}</a></li>
 
-	<li><a class="btn btn-sm btn" href="/resources">Resources</a></li>
+	<li><a class="btn btn-sm btn" href="/resources">{{ __("main.resources.Resources") }}</a></li>
 
 	<ul>
 

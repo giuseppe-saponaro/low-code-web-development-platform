@@ -8,9 +8,9 @@
 
             <ul>
 
-                <li>App <a href="/render/{{ $node->id }}" target="_blank">START</a></li>
+                <li>{{ __("main.apps.App") }} <a href="/render/{{ $node->id }}" target="_blank">{{ __("main.apps.START") }}</a></li>
                 <ul>
-                    <li><a href="/sharings">Condivisioni</a></li>
+                    <li><a href="/sharings">{{ __("main.apps.Sharings") }}</a></li>
                 </ul>
 
             </ul>
@@ -23,7 +23,7 @@
             <div class="p-4">
 
                 <a class="btn btn-primary" href="/apps/owner-app/data">
-                    <i class="bi bi-filetype-json"></i> Export all data
+                    <i class="bi bi-filetype-json"></i> {{ __("main.apps.Export all data") }}
                 </a>
 
             </div>

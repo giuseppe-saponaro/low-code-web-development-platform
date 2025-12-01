@@ -19,6 +19,7 @@ use App\Rules\MyExists2;
 use App\Rules\MyUnique;
 use App\Utilities\CommonService;
 use App\Utilities\Permission;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -135,6 +136,9 @@ class RowController extends Controller
                 } else {
 
                     $valueWithValue->value = $fieldValue;
+                }
+                if (request()->hasFile("nodes.$node0->id")) {
+                    $fieldValue->storeAs($valueWithValue->value, $fieldValue->getClientOriginalName());
                 }
             }
             $valueWithValue->save();

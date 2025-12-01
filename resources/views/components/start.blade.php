@@ -26,7 +26,7 @@
                     <div id="globalModalBody" class="modal-body">
                         <div class="w-100 text-center">
                             <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-                                <span class="visually-hidden">Loading...</span>
+                                <span class="visually-hidden">{{ __("main.start.Loading") }} ...</span>
                             </div>
                         </div>
 
@@ -61,7 +61,7 @@
         })
 
         globalModal.addEventListener('hidden.bs.modal', function (event) {
-       		document.getElementById('globalModalBody').innerHTML = '<div class="w-100 text-center"><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+       		document.getElementById('globalModalBody').innerHTML = '<div class="w-100 text-center"><div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"><span class="visually-hidden">{{ __("main.start.Loading") }} ...</span></div></div>';
         	//window.refresh();
         })
 

@@ -8,7 +8,7 @@
 
 		<div class="mb-3 form-floating">
 			<input type="text" class="form-control form-control-sm" name="name" value="{{ old('name', $selectedField->name) }}"/>
-			<label>Field name</label>
+			<label>{{ __("main.resources.Field name") }}</label>
             @error("name")
             <div class="text-danger">
                 {{ $message }}
@@ -19,20 +19,20 @@
         <div class="mb-3 form-check">
             <input class="form-check-input" type="checkbox" name="required"  @if (true == old('required', $selectedField->required)) checked @endif>
             <label class="form-check-label">
-                Required
+                {{ __("main.resources.Required") }}
             </label>
         </div>
 
         <div class="mb-3 form-check">
             <input class="form-check-input" type="checkbox" name="unique"  @if (true == old('unique', $selectedField->unique)) checked @endif>
             <label class="form-check-label">
-                Unique
+                {{ __("main.resources.Unique") }}
             </label>
         </div>
 
 		<div class="mb-3 form-floating">
             <select class="form-select" name="field_type" aria-label="Tipo di campo">
-                <option value ="" selected>Select ...</option>
+                <option value ="" selected>{{ __("main.resources.Select") }} ...</option>
                 @foreach($Utility::getValues() as $value => $field)
                 <option value="{{ $value }}" @if ($value == old('field_type', $Utility::getSectedFieldType($selectedField))) selected @endif>{{ $field["label"] }}</option>
                 @endforeach
@@ -41,7 +41,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary btn-sm mb-3">
-            <i class="bi bi-save"></i> Save
+            <i class="bi bi-save"></i> {{ __("main.resources.Save") }}
         </button>
 
 	</form>

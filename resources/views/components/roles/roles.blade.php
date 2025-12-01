@@ -20,7 +20,7 @@
            			<div class="col-8">
            				<div class="form-floating">
            					<input type="text" class="form-control form-control-sm" name="name"/>
-           					<label>Role name</label>
+           					<label>{{ __("main.roles.Role name") }}</label>
                             @error("name")
                             <div class="text-danger">
                                 {{ $message }}
@@ -31,7 +31,7 @@
            			</div>
            			<div class="col-4">
            				<button type="submit" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus-circle"></i> Create
+                            <i class="bi bi-plus-circle"></i> {{ __("main.roles.Create") }}
                         </button>
            			</div>
            		</div>
@@ -42,13 +42,13 @@
             @isset($selectedRole)
             <script>
                 function confirmDelete() {
-                    if(confirm("Confermi di voler cancellare il ruolo selezionato (l'operazione cancellerà i relativi permessi) ?")) {
+                    if(confirm('{{ __("main.roles.Do you want to delete the selected role ?") }}')) {
                         window.location.href = "/roles/{{ $selectedRole->id }}/delete";
                     }
                 }
             </script>
             <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">
-                <i class="bi bi-trash"></i> Delete Role
+                <i class="bi bi-trash"></i> {{ __("main.roles.Delete role") }}
             </a>
 			@endisset
 

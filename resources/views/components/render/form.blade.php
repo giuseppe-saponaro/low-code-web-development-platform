@@ -43,16 +43,16 @@ $action .= "?$qs";
         </script>
 
         <button type="button" class="btn btn-primary" onclick="window.loadNode({{ $selectedNode->id }}, '{{ $qs }}', 'globalModalBody')">
-            <i class="bi bi-plus-square"></i> New
+            <i class="bi bi-plus-square"></i> {{ __("main.render.New") }}
         </button>
 
         <button type="submit" class="btn btn-success">
-            <i class="bi bi-save"></i> Save
+            <i class="bi bi-save"></i> {{ __("main.render.Save") }}
         </button>
 
         @if($row)
         <a href="javascript:void(0)" class="btn btn-danger" data-bs-dismiss="modal" onclick="window.deleteRow({{ $row->id }})">
-            <i class="bi bi-trash"></i> Delete
+            <i class="bi bi-trash"></i> {{ __("main.render.Delete") }}
         </a>
         @endif
     </div>

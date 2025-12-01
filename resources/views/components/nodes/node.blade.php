@@ -8,7 +8,7 @@
 
 		<div class="mb-3 form-floating">
 			<input type="text" class="form-control form-control-sm" name="name" value="{{ old('name', $selectedNode->name) }}"/>
-			<label>Resource name</label>
+			<label>{{ __("main.nodes.Resource name") }}</label>
             @error("name")
             <div class="text-danger">
                 {{ $message }}
@@ -18,7 +18,7 @@
 
         <div class="mb-3 form-floating">
             <input type="text" class="form-control form-control-sm" name="label" value="{{ old('label', $selectedNode->label) }}"/>
-            <label>Label</label>
+            <label>{{ __("main.nodes.Label") }}</label>
             @error("label")
             <div class="text-danger">
                 {{ $message }}
@@ -28,16 +28,16 @@
 
 		<div class="mb-3 form-floating">
             <select class="form-select" name="html_type" aria-label="Tipo di nodo">
-                <option value="" selected>Select ...</option>
+                <option value="" selected>{{ __("main.nodes.Select") }} ...</option>
                 @foreach($Utility::getValues() as $value => $field)
                 <option value="{{ $value }}" @if ($value == old('html_type', $Utility::getSectedNodeType($selectedNode))) selected @endif>{{ $field["label"] }}</option>
                 @endforeach
                 </select>
-			<label>Type</label>
+			<label>{{ __("main.nodes.Type") }}</label>
         </div>
 
         <button type="submit" class="btn btn-primary btn-sm mb-3">
-            <i class="bi bi-save"></i> Save
+            <i class="bi bi-save"></i> {{ __("main.nodes.Save") }}
         </button>
 
 	</form>

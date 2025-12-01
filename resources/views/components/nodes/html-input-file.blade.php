@@ -1,4 +1,4 @@
-<form action="/nodes10/{{ $selectedNode->id }}" method="post">
+<form action="/nodes14/{{ $selectedNode->id }}" method="post">
     @csrf
     @method('put')
 

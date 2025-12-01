@@ -19,7 +19,7 @@
             		<div class="col-8">
             			<div class="form-floating">
             				<input type="text" class="form-control form-control-sm" name="name"/>
-            				<label>Sharing name</label>
+            				<label>{{ __("main.sharings.Sharing name") }}</label>
                             @error("name")
                             <div class="text-danger">
                                 {{ $message }}
@@ -30,7 +30,7 @@
             		</div>
             		<div class="col-4">
             			<button type="submit" class="btn btn-primary btn-sm">
-                            <i class="bi bi-save"></i> Save
+                            <i class="bi bi-save"></i> {{ __("main.sharings.Save") }}
                         </button>
             		</div>
             	</div>
@@ -42,13 +42,13 @@
             @isset($selectedSharing)
             <script>
                 function confirmDelete() {
-                    if(confirm("Do you want to delete selected sharing ?")) {
+                    if(confirm('{{ __("Do you want to delete the selected sharing ?") }}')) {
                         window.location.href = "/sharings/{{ $selectedSharing->id }}/delete";
                     }
                 }
             </script>
             <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">
-                <i class="bi bi-trash"></i> Delete Sharing
+                <i class="bi bi-trash"></i> {{ __("main.sharings.Delete sharing") }}
             </a>
 			@endisset
 

@@ -23,30 +23,30 @@
                 @auth
                 @if(Auth::user()->isInvitedUser())
                 <li class="nav-item">
-                  <a class="nav-link" href="/my-invites">Invites</a>
+                  <a class="nav-link" href="/my-invites">{{ __("main.layout.Invites") }}</a>
                 </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/invited-user-account">Account</a>
+                      <a class="nav-link" href="/invited-user-account">{{ __("main.layout.Account") }}</a>
                   </li>
                 @endif
                 @if(Auth::user()->isAdmin())
                 <li class="nav-item">
-                  <a class="nav-link" href="/apps/app">App</a>
+                  <a class="nav-link" href="/apps/app">{{ __("main.layout.App") }}</a>
                 </li>
 
                 @endif
 				@if(Auth::user()->isOwner())
                 <li class="nav-item">
-                  <a class="nav-link" href="/apps/owner-app">App</a>
+                  <a class="nav-link" href="/apps/owner-app">{{ __("main.layout.App") }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users">Users</a>
+                    <a class="nav-link" href="/users">{{ __("main.layout.Users") }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sharings">Sharings</a>
+                    <a class="nav-link" href="/sharings">{{ __("main.layout.Sharings") }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/owner-account">Account</a>
+                    <a class="nav-link" href="/owner-account">{{ __("main.layout.Account") }}</a>
                 </li>
                 @endif
 
@@ -55,7 +55,7 @@
 
               </ul>
             @auth
-            {{ Auth::user()->name }}&nbsp;<a href="/logout">Logout</a>
+            {{ Auth::user()->name }}&nbsp;<a href="/logout">{{ __("main.layout.Logout") }}</a>
             @endauth
             </div>
           </div>

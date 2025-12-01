@@ -1,7 +1,7 @@
 <x-layout>
 
     @isset($selected)
-    Selected: {{ $selected->name }}
+        {{ __("main.invites.Selected") }}: {{ $selected->name }}
     @endisset
 
     @isset($sharings)
@@ -9,7 +9,7 @@
 
         @foreach($sharings as $sharing)
 
-        <li><a href="/select-sharing/{{ $sharing->id }}">Select sharing: {{ $sharing->name }}</a></li>
+        <li><a href="/select-sharing/{{ $sharing->id }}">{{ __("main.invites.Select sharing") }}: {{ $sharing->name }}</a></li>
 
         @endforeach
 

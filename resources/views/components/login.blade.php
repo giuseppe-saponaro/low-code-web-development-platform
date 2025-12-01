@@ -9,7 +9,7 @@
 
             <div class="form-floating mb-3">
                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="name@example.com">
-                <label for="email">Email</label>
+                <label for="email">{{ __("main.login.Email") }}</label>
             </div>
             @error('email')
                 <div class="alert alert-danger">{{ $message }}</div>
@@ -17,10 +17,10 @@
 
             <div class="form-floating mb-3">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-                <label for="password">Password</label>
+                <label for="password">{{ __("main.login.Password") }}</label>
             </div>
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-person"></i> Login
+                <i class="bi bi-person"></i> {{ __("main.login.Login") }}
             </button>
         </form>
 

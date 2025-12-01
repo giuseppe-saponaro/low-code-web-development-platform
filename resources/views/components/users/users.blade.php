@@ -16,7 +16,7 @@
 
                     <div class="mb-3 form-floating">
                         <input type="text" class="form-control form-control-sm" name="name" value="{{ old('name', $selectedUser->name) }}"/>
-                        <label>Nome</label>
+                        <label>{{ __("main.users.Name") }}</label>
                         @error("name")
                         <div class="text-danger">
                             {{ $message }}
@@ -26,7 +26,7 @@
 
                     <div class="mb-3 form-floating">
                         <input type="text" class="form-control form-control-sm" name="email" value="{{ old('email', $selectedUser->email) }}"/>
-                        <label>Email</label>
+                        <label>{{ __("main.users.Email") }}</label>
                         @error("email")
                         <div class="text-danger">
                             {{ $message }}
@@ -35,7 +35,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-outline-danger btn-sm mb-3">
-                        <i class="bi bi-send"></i> Send User Invite
+                        <i class="bi bi-send"></i> {{ __("main.users.Send user invite") }}
                     </button>
 
                 </form>

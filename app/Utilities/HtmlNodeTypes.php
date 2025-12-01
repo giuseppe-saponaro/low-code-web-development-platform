@@ -9,6 +9,7 @@ use App\Models\Nodes\HtmlDate;
 use App\Models\Nodes\HtmlDateTime;
 use App\Models\Nodes\HtmlFieldset;
 use App\Models\Nodes\HtmlForm;
+use App\Models\Nodes\HtmlInputFile;
 use App\Models\Nodes\HtmlInputText;
 use App\Models\Nodes\HtmlList;
 use App\Models\Nodes\HtmlListBody;
@@ -177,6 +178,15 @@ class HtmlNodeTypes
             "render-component" => "render.html-textarea",
             "label" => "Html Textarea",
             "form-component" => "nodes.html-textarea",
+            "is-input" => true
+        ],
+        "HTML_INPUT_FILE" => [
+            "class" => HtmlInputFile::class,
+            "preview-component" => null,
+            "start-component" => null,
+            "render-component" => "render.html-input-file",
+            "label" => "Html Input File",
+            "form-component" => "nodes.html-input-file",
             "is-input" => true
         ]
 

@@ -13,9 +13,9 @@
             @isset($nodes)
 			<ul>
 
-                <li><a class="btn btn-sm btn" href="/apps/app">App</a></li>
+                <li><a class="btn btn-sm btn" href="/apps/app">{{ __("main.nodes.App") }}</a></li>
 
-            	<li><a class="btn btn-sm btn" href="/nodes">Nodes</a></li>
+            	<li><a class="btn btn-sm btn" href="/nodes">{{ __("main.nodes.Nodes") }}</a></li>
 
             	<ul>
 
@@ -60,7 +60,7 @@
             		<div class="col-8">
             			<div class="form-floating">
             				<input type="text" class="form-control form-control-sm" name="name"/>
-            				<label>Node name</label>
+            				<label>{{ __("main.nodes.Node name") }}</label>
                             @error("name")
                             <div class="text-danger">
                                 {{ $message }}
@@ -71,7 +71,7 @@
             		</div>
             		<div class="col-4">
             			<button type="submit" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus-circle"></i> Create
+                            <i class="bi bi-plus-circle"></i> {{ __("main.nodes.Create") }}
                         </button>
             		</div>
             	</div>
@@ -85,7 +85,7 @@
            			<div class="col-8">
            				<div class="form-floating">
            					<input type="text" class="form-control form-control-sm" name="name"/>
-           					<label>Children node name</label>
+           					<label>{{ __("main.nodes.Children node name") }}</label>
                             @error("name")
                             <div class="text-danger">
                                 {{ $message }}
@@ -96,7 +96,7 @@
            			</div>
            			<div class="col-4">
            				<button type="submit" class="btn btn-primary btn-sm">
-                            <i class="bi bi-plus-circle"></i> Create
+                            <i class="bi bi-plus-circle"></i> {{ __("main.nodes.Create") }}
                         </button>
            			</div>
            		</div>
@@ -106,12 +106,12 @@
         	@isset($selectedNode)
             <script>
                 function confirmDelete() {
-                    if(confirm("Confermi di voler cancellare il nodo selezionato (l'operazione cancellerà i nodi figli) ?")) {
+                    if(confirm('{{ __("main.nodes.Do you want to delete selected node ?") }}')) {
                         window.location.href = "/nodes/{{ $selectedNode->id }}/delete";
                     }
                 }
             </script>
-            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">Delete node</a>
+            <a class="btn btn-primary btn-danger btn-sm mt-3" href="javascript:void(0)" onclick="confirmDelete()" role="button">{{ __("main.nodes.Delete node") }}</a>
 			@endisset
 
 		</div>
@@ -121,7 +121,7 @@
             @isset($resources)
             <div class="p-4">
 
-                <h5>Risorse</h5>
+                <h5>{{ __("main.nodes.Resources") }}</h5>
 
                 <ul>
 
@@ -132,7 +132,7 @@
                             <form action="/resources/{{ $resource->id }}/autocreate-nodes" method="post">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-primary">
-                                    <i class="bi bi-plus-circle"></i> Create Nodes
+                                    <i class="bi bi-plus-circle"></i> {{ __("main.nodes.Create nodes") }}
                                 </button>
                             </form>
                         </li>

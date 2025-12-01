@@ -27,7 +27,7 @@
 
                     <div class="mb-2 form-floating">
                         <input type="text" name="email" value="{{ old("email", $email) }}" class="form-control"/>
-                        <label>Email</label>
+                        <label>{{ __("main.apps.Email") }}</label>
                         @error("email")
                         <div class="text-danger">
                             {{ $message }}
@@ -36,7 +36,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-send"></i> Send Owner Invite
+                        <i class="bi bi-send"></i> {{ __("Send Owner Invite") }}
                     </button>
                 </form>
 
