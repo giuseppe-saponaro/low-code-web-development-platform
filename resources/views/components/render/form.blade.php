@@ -24,6 +24,45 @@ $action .= "?$qs";
 	@csrf
 	@method($method)
 
+
+
+
+
+    @php
+        $redirect_row_id = \Illuminate\Support\Facades\Session::getOldInput("redirect_row_id");
+        $redirect_node_id = \Illuminate\Support\Facades\Session::getOldInput("redirect_node_id");
+        $redirect_inputs = \Illuminate\Support\Facades\Session::getOldInput("redirect_inputs");
+    @endphp
+
+    @isset($redirect_row_id)
+        <input type="hidden" name="redirect_row_id" value="{{ $redirect_row_id }}">
+    @endisset
+
+    @isset($redirect_node_id)
+        <input type="hidden" name="redirect_node_id" value="{{ $redirect_node_id }}">
+    @endisset
+
+    @isset($redirect_inputs)
+
+        @foreach($redirect_inputs as $inputName => $inputValue)
+            @if(!is_array($inputValue))
+                <input type="hidden" name="old_{{ $inputName }}" value="{{ $inputValue }}">
+            @else
+                @foreach($inputValue as $index => $singleInputValue)
+                    <input type="hidden" name="old_{{ $inputName }}[{{ $index }}]" value="{{ $singleInputValue }}">
+                @endforeach
+
+            @endif
+        @endforeach
+    @endisset
+
+
+
+
+
+
+
+
 	@foreach($selectedNode->children as $child)
 
 	@php
@@ -36,11 +75,8 @@ $action .= "?$qs";
 
 	@endforeach
 
+    @empty($redirect_node_id)
     <div class="text-end">
-
-        <script>
-
-        </script>
 
         <button type="button" class="btn btn-primary" onclick="window.loadNode({{ $selectedNode->id }}, '{{ $qs }}', 'globalModalBody')">
             <i class="bi bi-plus-square"></i> {{ __("main.render.New") }}
@@ -56,4 +92,21 @@ $action .= "?$qs";
         </a>
         @endif
     </div>
+    @endempty
+
+
+    @isset($redirect_node_id)
+    <div class="text-end">
+
+        <button type="submit" class="btn btn-warning" onclick="back()">
+            <i class="bi bi-chevron-left"></i> {{ __("main.render.Back") }}
+        </button>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-save"></i> {{ __("main.render.Save") }}
+        </button>
+
+    </div>
+    @endisset
+
 </form>

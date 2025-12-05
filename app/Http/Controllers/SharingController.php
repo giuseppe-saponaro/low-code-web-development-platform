@@ -42,6 +42,24 @@ class SharingController extends Controller
 
     }
 
+
+
+    private function flashOld() {
+
+        $nodes = null;
+
+        foreach (request()->all() as $inputName => $inputValue) {
+            if (str_starts_with($inputName, "old_nodes")) {
+                $nodes = $inputValue;
+            }
+        }
+
+        \request()->merge([
+            "nodes" => $nodes
+        ]);
+        \request()->flashOnly(["nodes"]);
+    }
+
     public function store2() {
 
 
@@ -59,8 +77,9 @@ class SharingController extends Controller
 
                 return view("components.new-sharing", [
                     "roles" => Role::all(),
+                    "redirect_row_id" => request()->redirect_row_id,
                     "redirect_node_id" => request()->redirect_node_id,
-                    "redirect_inputs" => request()->except(["redirect_node_id", "new_node_id", "email", "role_id", "_token"])
+                    "redirect_inputs" => request()->except(["redirect_row_id", "redirect_node_id", "new_node_id", "name", "email", "role_id", "_token", "_method"])
                 ])
                 ->withErrors($validator);
 
@@ -86,8 +105,14 @@ class SharingController extends Controller
 
         $redirectNodeid = \request()->redirect_node_id;
         if ($redirectNodeid) {
-            \request()->flash();
-            return redirect("/render/$redirectNodeid");
+            if (!request()->filled("redirect_row_id")) {
+                $this->flashOld();
+                return redirect("/render/$redirectNodeid");
+            } else {
+                $rowId = \request()->redirect_row_id;
+                $this->flashOld();
+                return redirect("/rows/$rowId");
+            }
         } else {
 
             // Fallback redirect

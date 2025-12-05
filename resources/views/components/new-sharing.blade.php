@@ -2,22 +2,36 @@
 <form action="/sharings2" method="post" onsubmit="submitRow(this, 'globalModalBody')">
     @csrf
 
+
+
+
+
+    @isset($redirect_row_id)
+        <input type="hidden" name="redirect_row_id" value="{{ $redirect_row_id }}">
+    @endisset
+
     @isset($redirect_node_id)
-    <input type="hidden" name="redirect_node_id" value="{{ $redirect_node_id }}">
+        <input type="hidden" name="redirect_node_id" value="{{ $redirect_node_id }}">
     @endisset
 
     @isset($redirect_inputs)
-    @foreach($redirect_inputs as $inputName => $inputValue)
-        @if(!is_array($inputValue))
-            <input type="hidden" name="{{ $inputName }}" value="{{ $inputValue }}">
-        @else
-            @foreach($inputValue as $index => $singleInputValue)
-            <input type="hidden" name="{{ $inputName }}[{{ $index }}]" value="{{ $singleInputValue }}">
-            @endforeach
 
-        @endif
-    @endforeach
+        @foreach($redirect_inputs as $inputName => $inputValue)
+            @if(!is_array($inputValue))
+                <input type="hidden" name="old_{{ $inputName }}" value="{{ $inputValue }}">
+            @else
+                @foreach($inputValue as $index => $singleInputValue)
+                    <input type="hidden" name="old_{{ $inputName }}[{{ $index }}]" value="{{ $singleInputValue }}">
+                @endforeach
+
+            @endif
+        @endforeach
     @endisset
+
+
+
+
+
 
     <div class="mb-2 form-floating">
         <input type="text" name="name" value="{{ old("name") }}" class="form-control form-control-sm"/>

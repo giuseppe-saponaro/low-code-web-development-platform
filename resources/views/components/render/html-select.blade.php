@@ -17,3 +17,6 @@
     </div>
     @enderror
 </div>
+<div class="mb-2" style="padding-left: 12px; font-size: 14px; color: #212529a6">
+    {{ __("main.render.Do you want to create a new item ?") }} <button type="submit" class="btn btn-primary btn-sm" onclick="yes({{ $selectedNode->id }})">{{ __("main.render.Yes") }}</button>
+</div>

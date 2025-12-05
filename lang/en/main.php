@@ -60,7 +60,8 @@ return [
         "Delete" => "Delete",
         "Find" => "Find",
         "Do you want to create a new sharing ?" => "Do you want to create a new sharing ?",
-        "Yes" => "Yes"
+        "Yes" => "Yes",
+        "Do you want to create a new item ?" => "Do you want to create a new item ?"
     ],
     "resources" => [
         "Options" => "Options",

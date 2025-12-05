@@ -247,23 +247,78 @@ class RowController extends Controller
     }
 
 
+    private function flashOld() {
+
+        $redirect_row_id = null;
+        $redirect_node_id = null;
+        $redirect_inputs = [];
+        $nodes = null;
+
+        foreach (request()->all() as $inputName => $inputValue) {
+            if (str_starts_with($inputName, "old_old_")) {
+                $newKey = substr($inputName, 8, strlen($inputName));
+                $redirect_inputs[$newKey] = $inputValue;
+            } else if (str_starts_with($inputName, "old_nodes")) {
+                $nodes = $inputValue;
+            } else if (str_starts_with($inputName, "old_redirect_node_id")) {
+                $redirect_node_id = $inputValue;
+            } else if (str_starts_with($inputName, "old_redirect_row_id")) {
+                $redirect_row_id = $inputValue;
+            }
+        }
+
+
+
+        \request()->merge([
+            "redirect_row_id" => $redirect_row_id,
+            "redirect_node_id" => $redirect_node_id,
+            "redirect_inputs" => $redirect_inputs,
+            "nodes" => $nodes
+        ]);
+        \request()->flashOnly(["redirect_row_id", "redirect_node_id", "redirect_inputs", "nodes"]);
+    }
+
 
     public function store(Node $node) {
 
+
+
         if (Auth::user()->canCreate($node)) {
+
+
+            // Contextual item insert
+            if (request()->filled("back")) {
+                if (!request()->filled("redirect_row_id")) {
+                    $redirectNodeid = \request()->redirect_node_id;
+                    $this->flashOld();
+                    return redirect("/render/$redirectNodeid");
+                } else {
+                    $rowId = request()->redirect_row_id;
+                    $this->flashOld();
+                    return redirect("/rows/$rowId");
+                }
+            }
 
             if (request()->filled("new_node_id")) {
                 $newNode = Node::find(request()->new_node_id);
-                if (Auth::user()->canCreate($newNode)) {
-                    if (HtmlSharingSelect::class === $newNode->html_type) {
-                        return view("components.new-sharing", [
-                            "roles" => Role::all(),
-                            "redirect_node_id" => $node->id,
-                            "redirect_inputs" => request()->except(["_token"])
-                        ]);
-                    }
+                if (HtmlSharingSelect::class === $newNode->html_type) {
+                    return view("components.new-sharing", [
+                        "roles" => Role::all(),
+                        "redirect_node_id" => $node->id,
+                        "redirect_inputs" => request()->except(["_method", "_token", "new_node_id"])
+                    ]);
+                } elseif (HtmlSelect::class === $newNode->html_type) {
+                    $formBinding = $newNode->html->formBinding->node;
+                    return redirect("/render/$formBinding->id")->withInput([
+                        "redirect_node_id" => $node->id,
+                        "redirect_inputs" => request()->except(["_method", "_token", "new_node_id"])
+                    ]);
                 }
             }
+            //
+
+
+
 
             if ($this->validator()->fails()) {
 
@@ -301,6 +356,22 @@ class RowController extends Controller
 
             });
 
+            // Contextual item insert
+            $redirectNodeid = \request()->redirect_node_id;
+            if ($redirectNodeid) {
+                if (!request()->filled("redirect_row_id")) {
+                    $this->flashOld();
+                    return redirect("/render/$redirectNodeid");
+                } else {
+                    $rowId = request()->redirect_row_id;
+                    $this->flashOld();
+                    return redirect("/rows/$rowId");
+                }
+            }
+            //
+
+
+
             $qs = \request()->getQueryString();
             $append = $qs?"?$qs":"";
 
@@ -331,6 +402,31 @@ class RowController extends Controller
     public function update(Row $row) {
 
         if (Auth::user()->canUpdate($row->form->node)) {
+
+
+
+            // Contextual item insert
+            if (request()->filled("new_node_id")) {
+                $newNode = Node::find(request()->new_node_id);
+                if (HtmlSharingSelect::class === $newNode->html_type) {
+                    return view("components.new-sharing", [
+                        "roles" => Role::all(),
+                        "redirect_row_id" => $row->id,
+                        "redirect_node_id" => $row->form->node->id,
+                        "redirect_inputs" => request()->except(["_method", "_token", "new_node_id"])
+                    ]);
+                } elseif (HtmlSelect::class === $newNode->html_type) {
+                    $formBinding = $newNode->html->formBinding->node;
+                    return redirect("/render/$formBinding->id")->withInput([
+                        "redirect_row_id" => $row->id,
+                        "redirect_node_id" => $row->form->node->id,
+                        "redirect_inputs" => request()->except(["_method", "_token", "new_node_id"])
+                    ]);
+                }
+            }
+            //
+
+
 
             if ($this->validator()->fails()) {
 
