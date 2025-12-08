@@ -5,7 +5,7 @@ return [
         "Invites" => "Invites",
         "Account" => "Account",
         "App" => "App",
-        "Users" => "Users",
+        "Invited users" => "Invited users",
         "Sharings" => "Sharings",
         "Logout" => "Logout"
     ],
@@ -51,7 +51,8 @@ return [
         "Resources" => "Resources",
         "Create nodes" => "Create nodes",
         "Resource name" => "Resource name",
-        "Type" => "Type"
+        "Type" => "Type",
+        "Sharings" => "Sharings"
     ],
     "render" => [
         "Select" => "Select",

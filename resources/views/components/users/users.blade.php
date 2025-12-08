@@ -114,6 +114,41 @@
         <div class="flex-grow-1">
 
 
+            @isset($sharings)
+            <div class="p-4">
+
+                <h5>{{ __("main.nodes.Sharings") }}</h5>
+
+                <ul>
+                    @foreach($sharings as $sharing)
+                    @if($sharing->sharingType && $sharing->sharingType->email)
+                    <li class="d-flex align-items-center">
+                        <span>
+                        {{ $sharing->name }},
+                        role: {{ $sharing->role->name }},
+                        email: {{ $sharing->sharingType->email }},
+                        </span>
+                        @if("INVITED" === $sharing->getInvitationStatus())
+                            <h3 class="d-inline m-1"><span class="badge text-bg-success">{{ __("main.nodes.Invited") }}</span></h3>
+                        @elseif("NOT_INVITED" === $sharing->getInvitationStatus())
+                            <h3 class="d-inline m-1"><span class="badge text-bg-warning">{{ __("main.nodes.Not invited") }}</span></h3>
+                            <form class="d-inline" action="/users" method="post">
+                                @csrf
+                                <input type="hidden" name="name" value="{{ $sharing->name }}">
+                                <input type="hidden" name="email" value="{{ $sharing->sharingType->email }}">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-send"></i> Send User Invite
+                                </button>
+                            </form>
+                        @endif
+
+                    </li>
+                    @endif
+                    @endforeach
+                </ul>
+
+            </div>
+            @endisset
 
 
 

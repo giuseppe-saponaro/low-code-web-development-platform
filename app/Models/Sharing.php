@@ -41,5 +41,18 @@ class Sharing extends Model
         return $this->belongsTo(Role::class, "role_id", "id");
     }
 
+    public function getInvitationStatus() {
+
+        if ($this->sharingType && $this->sharingType->email) {
+            $invite = User::query()->where("email", $this->sharingType->email)->first();
+            if ($invite) {
+                return "INVITED";
+            } else {
+                return "NOT_INVITED";
+            }
+        }
+
+    }
+
 
 }

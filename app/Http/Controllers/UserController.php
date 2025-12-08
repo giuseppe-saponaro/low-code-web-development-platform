@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\OwnerInvite;
 use App\Mail\UserInvite;
 use App\Models\InvitedUser;
+use App\Models\Sharing;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,11 @@ class UserController extends Controller
             [InvitedUser::class]
         )->get();
 
+        $sharings = Sharing::all();
+
         return view("components.users.users", [
-            "users" => $users
+            "users" => $users,
+            "sharings" => $sharings
         ]);
 
     }
@@ -103,6 +107,7 @@ class UserController extends Controller
 
     public function delete(User $user) {
         $user->delete();
+        return redirect("/users");
     }
 
 

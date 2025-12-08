@@ -40,10 +40,10 @@
                   <a class="nav-link" href="/apps/owner-app">{{ __("main.layout.App") }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users">{{ __("main.layout.Users") }}</a>
+                    <a class="nav-link" href="/sharings">{{ __("main.layout.Sharings") }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/sharings">{{ __("main.layout.Sharings") }}</a>
+                    <a class="nav-link" href="/users">{{ __("main.layout.Invited users") }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/owner-account">{{ __("main.layout.Account") }}</a>
