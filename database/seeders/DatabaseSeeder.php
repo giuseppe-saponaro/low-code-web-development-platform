@@ -4,12 +4,27 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\App;
+use App\Models\Field;
+use App\Models\FieldTypes\FKField;
+use App\Models\FieldTypes\StringField;
 use App\Models\FieldTypes\SvStringField;
+use App\Models\FieldTypes\TextField;
 use App\Models\InvitedUser;
+use App\Models\Node;
+use App\Models\Nodes\BootstrapNavbar;
+use App\Models\Nodes\BootstrapNavLink;
+use App\Models\Nodes\HtmlForm;
+use App\Models\Nodes\HtmlInputText;
+use App\Models\Nodes\HtmlList;
+use App\Models\Nodes\HtmlSelect;
+use App\Models\Nodes\HtmlTextarea;
 use App\Models\Owner;
+use App\Models\Resource;
 use App\Models\SvFloatField;
 use App\Models\SvIntegerField;
 use App\Models\User;
+use App\View\Components\Nodes\Navbar;
+use App\View\Components\Nodes\NavLink;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,7 +48,7 @@ class DatabaseSeeder extends Seeder
 
         $user = new User();
         $user->name = "Admin";
-        $user->email = "test@example.com";
+        $user->email = "admin@example.com";
         $user->password = Hash::make("123");
         $user->save();
 
@@ -43,8 +58,8 @@ class DatabaseSeeder extends Seeder
 
 
         $user2 = new User();
-        $user2->name = "Giuseppe";
-        $user2->email = "giuseppesaponaro41@gmail.com";
+        $user2->name = "Owner";
+        $user2->email = "owner@example.com";
         $user2->password = Hash::make("123");
         $user2->save();
 
@@ -76,287 +91,339 @@ class DatabaseSeeder extends Seeder
         $invitedUser2->user()->save($user4);
 
 
-
-        /*
-        $resource1 = new Resource();
-        $resource1->name = "Tabella1";
-        $resource1->save();
-
-
-        $field1 = new Field();
-        $field1->name = "Campo1";
-        $field1->resource_id = $resource1->id;
-        $field1->save();
-
-        $strinField1 = new StringField();
-        $strinField1->save();
-
-        $strinField1->field()->save($field1);
-
-
-
-        $field2 = new Field();
-        $field2->name = "Campo2";
-        $field2->resource_id = $resource1->id;
-        $field2->save();
-
-        $integerField1 = new IntegerField();
-        $integerField1->save();
-
-        $integerField1->field()->save($field2);
-
-
-
-
-        $field3 = new Field();
-        $field3->name = "Campo3";
-        $field3->resource_id = $resource1->id;
-        $field3->save();
-
-        $floatField1 = new FloatField();
-        $floatField1->save();
-
-        $floatField1->field()->save($field3);
-
-
-
-        $field4 = new Field();
-        $field4->name = "Campo4";
-        $field4->resource_id = $resource1->id;
-        $field4->save();
-
-        $fkField = new FKField();
-        $fkField->save();
-
-        $fkField->field()->save($field4);
-
-
-
-        $node1 = new Node();
-        $node1->name = "Form1";
-        $node1->save();
-
-        $htmlForm1 = new HtmlForm();
-        $htmlForm1->save();
-
-        $htmlForm1->node()->save($node1);
-
-
-        $node2 = new Node();
-        $node2->name = "Input1";
-        $node2->parent_id = $node1->id;
-        $node2->save();
-
-        $htmlInputText1 = new HtmlInputText();
-        $htmlInputText1->binding_id = $field1->id;
-        $htmlInputText1->save();
-
-        $htmlInputText1->node()->save($node2);
-
-
-        $node3 = new Node();
-        $node3->name = "Input2";
-        $node3->parent_id = $node1->id;
-        $node3->save();
-
-        $htmlInputText2 = new HtmlInputText();
-        $htmlInputText2->binding_id = $field2->id;
-        $htmlInputText2->save();
-
-        $htmlInputText2->node()->save($node3);
-
-
-
-        $node4 = new Node();
-        $node4->name = "Input3";
-        $node4->parent_id = $node1->id;
-        $node4->save();
-
-        $htmlInputText3 = new HtmlInputText();
-        $htmlInputText3->binding_id = $field3->id;
-        $htmlInputText3->save();
-
-        $htmlInputText3->node()->save($node4);
-
-
-        $node8 = new Node();
-        $node8->name = "Sharing field";
-        $node8->parent_id = $node1->id;
-        $node8->save();
-
-        $htmlSharingSelect1 = new HtmlSharingSelect();
-        $htmlSharingSelect1->binding_id = $field4->id;
-        $htmlSharingSelect1->save();
-
-        $htmlSharingSelect1->node()->save($node8);
-
-
-        $node7 = new Node();
-        $node7->name = "List1";
-        $node7->save();
-
-        $htmlList1 = new HtmlList();
-        $htmlList1->binding_id = $node1->id;
-        $htmlList1->node_id1 = $node2->id;
-        $htmlList1->node_id2 = $node3->id;
-        $htmlList1->save();
-
-        $htmlList1->node()->save($node7);
-
-
-
-        $node5 = new Node();
-        $node5->name = "Menu1";
-        $node5->save();
-
-        $bootstrapNavbar1 = new BootstrapNavbar();
-        $bootstrapNavbar1->save();
-
-        $bootstrapNavbar1->node()->save($node5);
-
-
-        $node6 = new Node();
-        $node6->name = "VoceMenu1";
-        $node6->parent_id = $node5->id;
-        $node6->save();
-
-        $bootstrapNavLink1 = new BootstrapNavLink();
-        $bootstrapNavLink1->label = "Form1";
-        $bootstrapNavLink1->ref_id = $node7->id;
-        $bootstrapNavLink1->save();
-
-        $bootstrapNavLink1->node()->save($node6);
-
-
-        $role1 = new Role();
-        $role1->name = "Ruolo1";
-        $role1->save();
-
-
-
-
-
-
-
-        $resource10 = new Resource();
-        $resource10->name = "Tabella2";
-        $resource10->save();
-
-
-        $field10 = new Field();
-        $field10->name = "Campo1";
-        $field10->resource_id = $resource10->id;
-        $field10->save();
-
-        $strinField10 = new StringField();
-        $strinField10->save();
-
-        $strinField10->field()->save($field10);
-
-
-
-
-
-
-        $field11 = new Field();
-        $field11->name = "Campo5";
-        $field11->resource_id = $resource1->id;
-        $field11->save();
-
-        $strinField11 = new FKField();
-        $strinField11->save();
-
-        $strinField11->field()->save($field11);
-
-
-
-
-
-        $node30 = new Node();
-        $node30->name = "Form2";
-        $node30->save();
-
-        $htmlForm30 = new HtmlForm();
-        $htmlForm30->save();
-
-        $htmlForm30->node()->save($node30);
-
-        $node31 = new Node();
-        $node31->name = "Option field";;
-        $node31->parent_id = $node30->id;
-        $node31->save();
-
-        $html30 = new HtmlInputText();
-        $html30->binding_id = $field10->id;
-        $html30->save();
-
-        $html30->node()->save($node31);
-
-
-
-
-
-        $node20 = new Node();
-        $node20->name = "Select field";
-        $node20->parent_id = $node1->id;
-        $node20->save();
-
-        $htmlSelect20 = new HtmlSelect();
-        $htmlSelect20->binding_id = $field11->id;
-        $htmlSelect20->form_binding_id = $htmlForm30->id;
-        $htmlSelect20->form_field_binding_id = $node31->id;
-        $htmlSelect20->save();
-
-        $htmlSelect20->node()->save($node20);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        $node40 = new Node();
-        $node40->name = "List2";
-        $node40->save();
-
-        $htmlList40 = new HtmlList();
-        $htmlList40->binding_id = $htmlForm30->id;
-        $htmlList40->node_id1 = $node31->id;
-        $htmlList40->node_id2 = $node31->id;
-        $htmlList40->save();
-
-        $htmlList40->node()->save($node40);
-
-
-
-
-
-
-
-
-
-
-
-        $node60 = new Node();
-        $node60->name = "VoceMenu2";
-        $node60->parent_id = $node5->id;
-        $node60->save();
-
-        $bootstrapNavLink60 = new BootstrapNavLink();
-        $bootstrapNavLink60->label = "Form2";
-        $bootstrapNavLink60->ref_id = $node40->id;
-        $bootstrapNavLink60->save();
-
-        $bootstrapNavLink60->node()->save($node60);
-
-        */
+        $nodeMenu = new Node();
+        $nodeMenu->name = "Menu";
+        $nodeMenu->label = "Menu";
+        $nodeMenu->save();
+        $navbarMenu = new BootstrapNavbar();
+        $navbarMenu->save();
+        $navbarMenu->node()->save($nodeMenu);
+
+
+
+        $resourcePropertyName = new Resource();
+        $resourcePropertyName->name = "ResourcePropertyName";
+        $resourcePropertyName->save();
+
+        $fieldProprietyNameName = new Field();
+        $fieldProprietyNameName->resource_id = $resourcePropertyName->id;
+        $fieldProprietyNameName->name = "FieldPropertyNameName";
+        $fieldProprietyNameName->required = true;
+        $fieldProprietyNameName->unique = true;
+        $fieldProprietyNameName->save();
+        $stringFieldPropertyNameName = new StringField();
+        $stringFieldPropertyNameName->save();
+        $stringFieldPropertyNameName->field()->save($fieldProprietyNameName);
+
+        $fieldProprietyNameDesc = new Field();
+        $fieldProprietyNameDesc->resource_id = $resourcePropertyName->id;
+        $fieldProprietyNameDesc->name = "FieldPropertyNameDesc";
+        $fieldProprietyNameDesc->save();
+        $textPropertyNameDesc = new TextField();
+        $textPropertyNameDesc->save();
+        $textPropertyNameDesc->field()->save($fieldProprietyNameDesc);
+
+        $nodePropertyName = new Node();
+        $nodePropertyName->name = "NodePropertyName";
+        $nodePropertyName->label = "Property name form";
+        $nodePropertyName->save();
+        $formPropertyName = new HtmlForm();
+        $formPropertyName->save();
+        $formPropertyName->node()->save($nodePropertyName);
+
+        $nodePropertyNameName = new Node();
+        $nodePropertyNameName->name = "NodePropertyNameName";
+        $nodePropertyNameName->label = "Property name";
+        $nodePropertyNameName->parent_id = $nodePropertyName->id;
+        $nodePropertyNameName->save();
+        $inputPropertyNameName = new HtmlInputText();
+        $inputPropertyNameName->binding_id = $fieldProprietyNameName->id;
+        $inputPropertyNameName->save();
+        $inputPropertyNameName->node()->save($nodePropertyNameName);
+
+        $nodePropertyNameDesc = new Node();
+        $nodePropertyNameDesc->name = "NodePropertyNameDesc";
+        $nodePropertyNameDesc->label = "Property name description";
+        $nodePropertyNameDesc->parent_id = $nodePropertyName->id;
+        $nodePropertyNameDesc->save();
+        $textareaPropertyNameDesc = new HtmlTextarea();
+        $textareaPropertyNameDesc->binding_id = $fieldProprietyNameDesc->id;
+        $textareaPropertyNameDesc->save();
+        $textareaPropertyNameDesc->node()->save($nodePropertyNameDesc);
+
+        $nodeListPropertyName = new Node();
+        $nodeListPropertyName->name = "NodeListPropertyName";
+        $nodeListPropertyName->label = "List of property name";
+        $nodeListPropertyName->save();
+        $listPropertyName = new HtmlList();
+        $listPropertyName->binding_id = $formPropertyName->id;
+        $listPropertyName->node_id1 = $nodePropertyNameName->id;
+        $listPropertyName->node_id2 = $nodePropertyNameDesc->id;
+        $listPropertyName->save();
+        $listPropertyName->node()->save($nodeListPropertyName);
+
+        $nodeMenuItemPropertyName = new Node();
+        $nodeMenuItemPropertyName->name = "NodeMenuItemPropertyName";
+        $nodeMenuItemPropertyName->label = "List of property name";
+        $nodeMenuItemPropertyName->parent_id = $nodeMenu->id;
+        $nodeMenuItemPropertyName->save();
+        $menuItemPropertyName = new BootstrapNavLink();
+        $menuItemPropertyName->label = "List of property name";
+        $menuItemPropertyName->ref_id = $nodeListPropertyName->id;
+        $menuItemPropertyName->save();
+        $menuItemPropertyName->node()->save($nodeMenuItemPropertyName);
+
+
+
+
+
+
+        $resourcePropriety = new Resource();
+        $resourcePropriety->name = "ResourceProperty";
+        $resourcePropriety->save();
+
+        $fieldProperty = new Field();
+        $fieldProperty->resource_id = $resourcePropriety->id;
+        $fieldProperty->name = "FieldProperty";
+        $fieldProperty->required = true;
+        $fieldProperty->unique = true;
+        $fieldProperty->save();
+        $stringFieldProperty = new StringField();
+        $stringFieldProperty->save();
+        $stringFieldProperty->field()->save($fieldProperty);
+
+        $fieldPropertyDesc = new Field();
+        $fieldPropertyDesc->resource_id = $resourcePropriety->id;
+        $fieldPropertyDesc->name = "FieldPropertyDesc";
+        $fieldPropertyDesc->save();
+        $textPropertyDesc = new TextField();
+        $textPropertyDesc->save();
+        $textPropertyDesc->field()->save($fieldPropertyDesc);
+
+        $fieldPropertyName = new Field();
+        $fieldPropertyName->resource_id = $resourcePropriety->id;
+        $fieldPropertyName->name = "FieldPropertyName";
+        $fieldPropertyName->required = true;
+        $fieldPropertyName->save();
+        $fkFieldPropertyName = new FKField();
+        $fkFieldPropertyName->save();
+        $fkFieldPropertyName->field()->save($fieldPropertyName);
+
+        $nodeProperty = new Node();
+        $nodeProperty->name = "NodeProperty";
+        $nodeProperty->label = "Property form";
+        $nodeProperty->save();
+        $formProperty = new HtmlForm();
+        $formProperty->save();
+        $formProperty->node()->save($nodeProperty);
+
+        $nodeProperty1 = new Node();
+        $nodeProperty1->name = "NodeProperty1";
+        $nodeProperty1->label = "Property";
+        $nodeProperty1->parent_id = $nodeProperty->id;
+        $nodeProperty1->save();
+        $inputProperty1 = new HtmlInputText();
+        $inputProperty1->binding_id = $fieldProperty->id;
+        $inputProperty1->save();
+        $inputProperty1->node()->save($nodeProperty1);
+
+        $nodePropertyDesc = new Node();
+        $nodePropertyDesc->name = "NodePropertyDesc";
+        $nodePropertyDesc->label = "Property description";
+        $nodePropertyDesc->parent_id = $nodeProperty->id;
+        $nodePropertyDesc->save();
+        $textareaPropertyDesc = new HtmlTextarea();
+        $textareaPropertyDesc->binding_id = $fieldPropertyDesc->id;
+        $textareaPropertyDesc->save();
+        $textareaPropertyDesc->node()->save($nodePropertyDesc);
+
+        $nodePropertyNameS = new Node();
+        $nodePropertyNameS->name = "NodePropertyNameS";
+        $nodePropertyNameS->label = "Property name";
+        $nodePropertyNameS->parent_id = $nodeProperty->id;
+        $nodePropertyNameS->save();
+        $selectPropertyName = new HtmlSelect();
+        $selectPropertyName->binding_id = $fieldPropertyName->id;
+        $selectPropertyName->form_binding_id = $formPropertyName->id;
+        $selectPropertyName->form_field_binding_id = $nodePropertyNameName->id;
+        $selectPropertyName->save();
+        $selectPropertyName->node()->save($nodePropertyNameS);
+
+        $nodeListProperty = new Node();
+        $nodeListProperty->name = "NodeListProperty";
+        $nodeListProperty->label = "List of property";
+        $nodeListProperty->save();
+        $listProperty = new HtmlList();
+        $listProperty->binding_id = $formProperty->id;
+        $listProperty->node_id1 = $nodeProperty1->id;
+        $listProperty->node_id2 = $nodePropertyDesc->id;
+        $listProperty->save();
+        $listProperty->node()->save($nodeListProperty);
+
+        $nodeMenuItemProperty = new Node();
+        $nodeMenuItemProperty->name = "NodeMenuItemProperty";
+        $nodeMenuItemProperty->label = "List of property";
+        $nodeMenuItemProperty->parent_id = $nodeMenu->id;
+        $nodeMenuItemProperty->save();
+        $menuItemProperty = new BootstrapNavLink();
+        $menuItemProperty->label = "List of property";
+        $menuItemProperty->ref_id = $nodeListProperty->id;
+        $menuItemProperty->save();
+        $menuItemProperty->node()->save($nodeMenuItemProperty);
+
+
+
+
+        $resourceItem = new Resource();
+        $resourceItem->name = "ResourceItem";
+        $resourceItem->save();
+
+        $fieldItemName = new Field();
+        $fieldItemName->resource_id = $resourceItem->id;
+        $fieldItemName->name = "FieldItemName";
+        $fieldItemName->required = true;
+        $fieldItemName->unique = true;
+        $fieldItemName->save();
+        $stringFieldItemName = new StringField();
+        $stringFieldItemName->save();
+        $stringFieldItemName->field()->save($fieldItemName);
+
+        $fieldItemDesc = new Field();
+        $fieldItemDesc->resource_id = $resourceItem->id;
+        $fieldItemDesc->name = "FieldItemDesc";
+        $fieldItemDesc->save();
+        $textItemDesc = new TextField();
+        $textItemDesc->save();
+        $textItemDesc->field()->save($fieldItemDesc);
+
+        $nodeItem = new Node();
+        $nodeItem->name = "NodeItem";
+        $nodeItem->label = "Item form";
+        $nodeItem->save();
+        $formItem = new HtmlForm();
+        $formItem->save();
+        $formItem->node()->save($nodeItem);
+
+        $nodeItemName = new Node();
+        $nodeItemName->name = "NodeItemName";
+        $nodeItemName->label = "Item name";
+        $nodeItemName->parent_id = $nodeItem->id;
+        $nodeItemName->save();
+        $inputItemName = new HtmlInputText();
+        $inputItemName->binding_id = $fieldItemName->id;
+        $inputItemName->save();
+        $inputItemName->node()->save($nodeItemName);
+
+        $nodeItemDesc = new Node();
+        $nodeItemDesc->name = "NodeItemDesc";
+        $nodeItemDesc->label = "Item description";
+        $nodeItemDesc->parent_id = $nodeItem->id;
+        $nodeItemDesc->save();
+        $textareaItemDesc = new HtmlTextarea();
+        $textareaItemDesc->binding_id = $fieldItemDesc->id;
+        $textareaItemDesc->save();
+        $textareaItemDesc->node()->save($nodeItemDesc);
+
+        $nodeListItem = new Node();
+        $nodeListItem->name = "NodeListItem";
+        $nodeListItem->label = "List of item";
+        $nodeListItem->save();
+        $listItem = new HtmlList();
+        $listItem->binding_id = $formItem->id;
+        $listItem->node_id1 = $nodeItemName->id;
+        $listItem->node_id2 = $nodeItemDesc->id;
+        $listItem->save();
+        $listItem->node()->save($nodeListItem);
+
+        $nodeMenuItemItem = new Node();
+        $nodeMenuItemItem->name = "NodeMenuItemItem";
+        $nodeMenuItemItem->label = "List of item";
+        $nodeMenuItemItem->parent_id = $nodeMenu->id;
+        $nodeMenuItemItem->save();
+        $menuItemItem = new BootstrapNavLink();
+        $menuItemItem->label = "List of item";
+        $menuItemItem->ref_id = $nodeListItem->id;
+        $menuItemItem->save();
+        $menuItemItem->node()->save($nodeMenuItemItem);
+
+
+
+
+        $resourceItemPropriety = new Resource();
+        $resourceItemPropriety->name = "ResourceItemProperty";
+        $resourceItemPropriety->save();
+
+        $fieldItem = new Field();
+        $fieldItem->resource_id = $resourceItemPropriety->id;
+        $fieldItem->name = "FieldItem";
+        $fieldItem->required = true;
+        $fieldItem->save();
+        $fkFieldItem = new FKField();
+        $fkFieldItem->save();
+        $fkFieldItem->field()->save($fieldItem);
+
+        $fieldProperty = new Field();
+        $fieldProperty->resource_id = $resourceItemPropriety->id;
+        $fieldProperty->name = "FieldProperty";
+        $fieldProperty->required = true;
+        $fieldProperty->save();
+        $fkFieldProperty = new FKField();
+        $fkFieldProperty->save();
+        $fkFieldProperty->field()->save($fieldProperty);
+
+        $nodeItemProperty = new Node();
+        $nodeItemProperty->name = "NodeItemProperty";
+        $nodeItemProperty->label = "Item Property form";
+        $nodeItemProperty->save();
+        $formItemProperty = new HtmlForm();
+        $formItemProperty->save();
+        $formItemProperty->node()->save($nodeItemProperty);
+
+        $nodeItemS = new Node();
+        $nodeItemS->name = "NodeItemS";
+        $nodeItemS->label = "Item";
+        $nodeItemS->parent_id = $nodeItemProperty->id;
+        $nodeItemS->save();
+        $selectItem = new HtmlSelect();
+        $selectItem->binding_id = $fieldItem->id;
+        $selectItem->form_binding_id = $formItem->id;
+        $selectItem->form_field_binding_id = $nodeItemName->id;
+        $selectItem->save();
+        $selectItem->node()->save($nodeItemS);
+
+        $nodePropertyS = new Node();
+        $nodePropertyS->name = "NodePropertyS";
+        $nodePropertyS->label = "Property";
+        $nodePropertyS->parent_id = $nodeItemProperty->id;
+        $nodePropertyS->save();
+        $selectProperty = new HtmlSelect();
+        $selectProperty->binding_id = $fieldProperty->id;
+        $selectProperty->form_binding_id = $formProperty->id;
+        $selectProperty->form_field_binding_id = $nodeProperty1->id;
+        $selectProperty->save();
+        $selectProperty->node()->save($nodePropertyS);
+
+        $nodeListItemProperty = new Node();
+        $nodeListItemProperty->name = "NodeListItemProperty";
+        $nodeListItemProperty->label = "List of item property";
+        $nodeListItemProperty->save();
+        $listItemProperty = new HtmlList();
+        $listItemProperty->binding_id = $formItemProperty->id;
+        $listItemProperty->node_id1 = $nodeItemS->id;
+        $listItemProperty->node_id2 = $nodePropertyS->id;
+        $listItemProperty->save();
+        $listItemProperty->node()->save($nodeListItemProperty);
+
+        $nodeMenuItemItemProperty = new Node();
+        $nodeMenuItemItemProperty->name = "NodeMenuItemItemProperty";
+        $nodeMenuItemItemProperty->label = "List of item property";
+        $nodeMenuItemItemProperty->parent_id = $nodeMenu->id;
+        $nodeMenuItemItemProperty->save();
+        $menuItemItemProperty = new BootstrapNavLink();
+        $menuItemItemProperty->label = "List of item property";
+        $menuItemItemProperty->ref_id = $nodeListItemProperty->id;
+        $menuItemItemProperty->save();
+        $menuItemItemProperty->node()->save($nodeMenuItemItemProperty);
 
     }
 }

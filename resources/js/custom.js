@@ -134,7 +134,7 @@ window.refresh = function() {
 window.addEventListener('refresh', function (event) {
     let nodeId = event.detail.formId;
     let parentRowId = event.detail.parentRowId;
-    let qs = null;
+    let qs = "";
     if (parentRowId) {
         qs = '?parent_row_id=' + parentRowId;
     }
